@@ -31,8 +31,8 @@ Ext.setup
     onReady: function()
     {   	
         // panels that build our application
-    	var tag_1, tag_2, move_switch, pinchLayer, tagPanel;
-    	var bottom_thingy, bottom_thiny_header, bottom_thingy_content, bottom_bildleiste;
+    	var move_switch, pinchLayer, tagPanel;
+    	var bottom_thingy, bottom_thingy_content, bottom_bildleiste;
     	var side_thingy, side_thingy_list;
     	
     	// booleans for global state
@@ -115,8 +115,7 @@ Ext.setup
                 }
             },
             dockedItems: [bottom_bildleiste],
- //           items: [bottom_thingy_header, bottom_thingy_content]
-             items: [bottom_thingy_content]
+            items: [bottom_thingy_content]
        });
         
         // list for side panel
@@ -137,26 +136,7 @@ Ext.setup
             showAnimation: {type: "slide", direction: "left", duration: 1000},
             items: [side_thingy_list]
         });
-            	
-    	    	
-    	tag_1 = new Ext.Panel
-    	({
-        	cls: "layer_dummy",
-    		html: "TECHNOLOGY",
-    		width: "220",
-    		height: "50",
-    		draggable: "false"
-    	});
-    	
-        tag_2 = new Ext.Panel
-        ({
-        	cls: "layer_dummy",
-        	html: "ART",
-        	width: "80",
-        	height: "50",
-        	draggable: "false"
-        });
-         
+            	         
         move_switch = new Ext.Panel
         ({
             html: "dragging: on",
