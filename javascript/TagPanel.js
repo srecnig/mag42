@@ -174,7 +174,12 @@ var TagPanel = Ext.extend(Ext.Panel,
 	{
 		var t1 = new Tag();
 		t1.setName("SPORTS", 0);
-		
+		var c1 = new Tag();
+		c1.setName("BUNDESLIGA", 1);
+		t1.addChild(c1);
+		t1.setPos(300,100);
+
+				
 		var t2 = new Tag();
 		t2.setName("ART", 0);
 		t2.setPos(200,300);
@@ -182,12 +187,6 @@ var TagPanel = Ext.extend(Ext.Panel,
 		var t3 = new Tag();
 		t3.setName("TECHNOLOGY", 0);
 		t3.setPos(20,50);
-		
-		var c1 = new Tag();
-		c1.setName("BUNDESLIGA", 1);
-			
-		t1.addChild(c1);
-		t1.setPos(100,100);
 		
 		this.addTag(t1);
 		this.addTag(t2);

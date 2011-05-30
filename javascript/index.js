@@ -1,6 +1,6 @@
 var rootPanel, tagstore;
 
-Ext.regModel('Tag', {fields: ['tagname']});
+Ext.regModel('Tag', {fields: [{name: 'id'}, {name: 'tagname', type: 'string'}, ]});
 
 tagstore = new Ext.data.Store({
     model: 'Tag', 
@@ -36,7 +36,6 @@ Ext.setup
     	var side_thingy, side_thingy_list;
     	
     	// booleans for global state
-    	var all_draggable = true;
     	var side_thingy_enabled = true;
     	
     	// Bildleiste als Header
@@ -120,12 +119,29 @@ Ext.setup
         
         // list for side panel
         side_thingy_list = new Ext.List({
-           style: "background-image: url(gfx/listbg.png); background-repeat:repeat; z-index: 10",
-           store: tagstore,
+            style: "background-image: url(gfx/listbg.png); background-repeat:repeat; z-index: 10",
+            store: tagstore,
             itemTpl: '<div class="list" style="background-image: url(gfx/tag.png);">{tagname}</div>',
             grouped: false,
             indexBar: false,
-            height: "720"
+            height: "720",
+            itemSelector: "div.list",
+            listeners:
+            {
+                
+                    itemdoubletap:  function(list_object, index, item, event)
+                    {
+                        console.log("itemtap happened at: " + list_object.store.getAt(index).get('tagname'));
+                    
+                        /* add new tag
+                        var new_tag = new Tag();
+		                new_tag.setName("NEW TAG", 0);
+		                new_tag.setPos(500,500);
+		                tagPanel.addTag(new_tag);
+		                */
+                    }
+                
+            }
         });
                 
         // actual side panel
@@ -149,22 +165,17 @@ Ext.setup
                     tap:    function() 
                     { 
                         
-                        if (all_draggable == true)
+                        if (side_thingy_enabled == true)
                         {
                             this.update("dragging: off"); 
-                            // remove draggablity of _all_ tags
-                            tag_1.setDraggable(false);
-                            tag_2.setDraggable(false);                            
-                            all_draggable = false;
+                            side_thingy_enabled = false;
                             side_thingy.hide();
                         }
                         else
                         {
                             // add draggability to _all_ tags
-                            this.update("dragging: on"); 
-                            tag_1.setDraggable(true);
-                            tag_2.setDraggable(true);
-                            all_draggable = true;
+                            this.update("dragging: on");
+                            side_thingy_enabled = true; 
                             side_thingy.show();
                         }
                         
