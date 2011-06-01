@@ -83,11 +83,6 @@ var PinchLayer = Ext.extend(Ext.Container,
 	{
 		PinchLayer.pinchStart = true;
 		PinchLayer.pinching = true;
-		
-		PinchLayer.pinchPos[0] = e.midPointX;
-		PinchLayer.pinchPos[1] = e.midPointY;
-		
-		PinchLayer.tagPanel.onPinchStart(e.midPointX, e.midPointY);
 	},
 
 	// @privat
@@ -167,18 +162,22 @@ var PinchLayer = Ext.extend(Ext.Container,
 	 	PinchLayer.level = Math.floor(PinchLayer.current/200);
 		
 		//console.log("pinchlevel: " + PinchLayer.level + " pinchSize: " + PinchLayer.current);
-		
-		if(PinchLayer.pinchStart) 
+	 	
+		if(PinchLayer.pinchStart)
 		{
-			//console.log("pinch Pos: " + e.midPointX + ", " + e.midPointY);
-			PinchLayer.pinchStart = false;
 			PinchLayer.pinchPos[0] = e.midPointX;
 			PinchLayer.pinchPos[1] = e.midPointY;
+			PinchLayer.tagPanel.onPinchStart(e.midPointX, e.midPointY);
+			console.log("pinchLayer -> pinchStart: " + e.midPointX + ", " + e.midPointY);
+			PinchLayer.pinchStart = false;
 		}
+	 	
 		
 		var zoom = PinchLayer.current/PinchLayer.min;
+	 	var c = calcColor(PinchLayer.current, PinchLayer.max);
 	 	
-	 	PinchLayer.tagPanel.updateTags(PinchLayer.current, PinchLayer.level, PinchLayer.pinchPos, zoom, calcColor(PinchLayer.current, PinchLayer.max));
+	 	PinchLayer.tagPanel.updateTags(PinchLayer.current, PinchLayer.level, zoom, c);
+		this.update("<div id=\"tagContainer\" class=\"test\" style=\"background-color: #"+c+";\">zoomstep: "+ PinchLayer.current +"/"+PinchLayer.max+" | pinchPos: (" +PinchLayer.pinchPos[0]+ ","+PinchLayer.pinchPos[1]+ ") | zoom: "+zoom+ "</div>");
 	},
 	
 	onPinchEnd: function(e, el, obj)

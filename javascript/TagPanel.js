@@ -341,14 +341,12 @@ var TagPanel = Ext.extend(Ext.Panel,
 		{
 			for(var i=0; i<TagPanel.tags.length; i++)
 			{
-				TagPanel.tags[i].updateTag(s, l, p[0], p[1], z);
+				TagPanel.tags[i].updateTag(s, l, z);
 				TagPanel.tags[i].updateChildren();
 			}
 		}
 		
 		//console.log("tag pinch z: " +z);
-		
-		this.update("<div id=\"tagContainer\" class=\"test\" style=\"background-color: #"+c+";\"></div>");
 	},
 	
 	updateTagsLayout: function()

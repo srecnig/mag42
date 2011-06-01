@@ -91,11 +91,11 @@
 {
 	position: absolute;
 	width:1024px;
-	height:2px;
-	z-index: 1;
+	height:20px;
+	z-index: 999;
 	top: 0px;
 	left: 0px;
-	opacity: 0.5;
+	opacity: 1;
 }
 
 .helper
