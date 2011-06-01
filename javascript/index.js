@@ -203,8 +203,7 @@ Ext.setup
         
         tagPanel = new TagPanel
         ({
-        	layout:{type:'auto'},
-        	items: [pinchLayer]
+        	layout:{type:'auto'}
         });
             
         pinchLayer.setParent(tagPanel);
@@ -214,7 +213,8 @@ Ext.setup
         	fullscreen:true,
         	layout:{type:'auto'},
         	style: "background-image: url(gfx/bg.png); background-repeat: repeat;",
-        	items:[move_switch, tagPanel]
+        	items:[move_switch, tagPanel],
+        	dockeditems:[pinchLayer]
         });
 
     	rootPanel = new Ext.Panel

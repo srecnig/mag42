@@ -30,8 +30,8 @@
 	z-index: 1000;
 	top:0px; left:0px;
 	color: #ffffff;
-	/*background-color: #221122;*/
-	opacity: 0;
+	background-color: #fdfc84;
+	opacity: 0.3;
 }
 
 .pinchInfo
