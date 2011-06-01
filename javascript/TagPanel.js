@@ -57,7 +57,7 @@ var Tag = Ext.extend(Ext.Container,
 		this.name = n;
 		this.tagLayer = l;
 		this.tagID = l + "_" + n;
-       	this.updateTag(this.size, this.alpha);
+       	this.updateTag(this.size, this.alpha,1);
 			
 		this.initialPos.x = this.x;
 		this.initialPos.y = this.y;
@@ -84,7 +84,7 @@ var Tag = Ext.extend(Ext.Container,
 		return pos;
 	},
 	
-	updateTag: function(size, level, px, py, z)
+	updateTag: function(size, level, zoom)
 	{
 		this.size = size;
 		this.pinchLevel = level;
@@ -100,19 +100,10 @@ var Tag = Ext.extend(Ext.Container,
 		
 			this.tagAlpha = 1 - ( this.tagFontSize ) / MAX_FONT_SIZE;
 		}
+				
+		console.log("Tag->updateTag "+this.name+" z: " + zoom);
+		this.calcPos(zoom);
 		
-		
-		// set pinch pos once, when pinchStart event was fired
-		if( px != null )
-		{
-			if( this.pinchPos.x != px && this.pinchPos.y != py)
-			{
-				this.pinchPos.x = px;
-				this.pinchPos.y = py;
-			}
-			
-			if (z!=null) { this.calcPos(z); }
-		}
 		
 		this.update("<div id=\"" + this.tagID + "\" class=\"layer"+this.tagLayer+"\" style=\" opacity: " + this.tagAlpha + ";\"><span style=\"font-size:" + this.tagFontSize + "px\">"+this.name+"</span></div>");
 		//console.log("this: " + this.getWidth() + ", " + this.getHeight());
@@ -124,29 +115,28 @@ var Tag = Ext.extend(Ext.Container,
 		var tp = new Object();
 		tp.x = this.x;
 		tp.y = this.y;
+			
+		this.dis = vec2dis(tp, this.pinchPos);
 		
-		ORIGIN.x = this.pinchPos.x;
-		ORIGIN.y = this.pinchPos.y;
-		
-		//this.dis = vec2dis(tp, ORIGIN);
-		
-		if(this.x > ORIGIN.x)
+		if(this.x > this.pinchPos.x)
 		{
-			tx = ORIGIN.x + this.dis * z;
+			tx = this.pinchPos.x + this.dis * z;
 		}
 		else
 		{
-			tx = ORIGIN.x - this.dis * z;
+			tx = this.pinchPos.x - this.dis * z;
 		}
 		
 		if(this.y > ORIGIN.y)
 		{
-			ty = ORIGIN.y + this.dis * z;
+			ty = this.pinchPos.y + this.dis * z;
 		}
 		else
 		{
-			ty = ORIGIN.y - this.dis * z;
+			ty = this.pinchPos.y - this.dis * z;
 		}
+		
+		//console.log(this.name  + " -> dis: " + this.dis);
 		
 		//console.log("ORIGIN: " + ORIGIN.x + ", " + ORIGIN.y + "  dis: " + this.dis + "   z: " + z);
 		//console.log("t: " + tx + ", " + ty);
@@ -161,7 +151,7 @@ var Tag = Ext.extend(Ext.Container,
 		
 		this.dis = vec2dis(this.getPos(), this.pinchPos);
 		
-		console.log("TagPanel.onPinchStart: p(" + this.pinchPos.x + "," +  this.pinchPos.y + ") - t(" + this.x + "," + this.y + ") -> " + this.dis );
+		//console.log("TagPanel.onPinchStart: p(" + this.pinchPos.x + "," +  this.pinchPos.y + ") - t(" + this.x + "," + this.y + ") -> " + this.dis );
 	},
 	
 	afterRender: function() 
@@ -209,7 +199,7 @@ var Tag = Ext.extend(Ext.Container,
 	{
 		Tag.childTags.push(c);
 		this.add(c);
-		this.updateChildren();
+		this.updateChildren(1);
 	},
 
 	getChild: function(nr)
@@ -229,13 +219,13 @@ var Tag = Ext.extend(Ext.Container,
 		return Tag.childTags.length;
 	},
 	
-	updateChildren: function()
+	updateChildren: function(zoom)
 	{
 		if(Tag.childTags.length > 0)
 		{
 			for(var i=0; i<Tag.childTags.length; i++)
 			{
-				Tag.childTags[i].updateTag(this.size/2, this.level);
+				Tag.childTags[i].updateTag(this.size/2, this.level, zoom);
 			}
 			this.doLayout();
 		}
@@ -335,17 +325,20 @@ var TagPanel = Ext.extend(Ext.Panel,
 	//l pinchLevel
 	//p pinchPos
 	//c pinchColor
-	updateTags: function(s, l, p, z, c)
+	updateTags: function(s, l, z, c)
 	{
+		console.log(" TagPanel->updateTags z: " + z);
+		
 		if(TagPanel.tags.length > 0)
 		{
 			for(var i=0; i<TagPanel.tags.length; i++)
 			{
 				TagPanel.tags[i].updateTag(s, l, z);
-				TagPanel.tags[i].updateChildren();
+				TagPanel.tags[i].updateChildren(z);
+				//console.log(" TagPanel->updateTags " + TagPanel.tags[i].name + " z: " + z);
 			}
 		}
-		
+	
 		//console.log("tag pinch z: " +z);
 	},
 	

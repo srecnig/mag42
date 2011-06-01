@@ -168,8 +168,9 @@ var PinchLayer = Ext.extend(Ext.Container,
 			PinchLayer.pinchPos[0] = e.midPointX;
 			PinchLayer.pinchPos[1] = e.midPointY;
 			PinchLayer.tagPanel.onPinchStart(e.midPointX, e.midPointY);
-			console.log("pinchLayer -> pinchStart: " + e.midPointX + ", " + e.midPointY);
 			PinchLayer.pinchStart = false;
+			
+			//console.log("pinchLayer -> pinchStart: " + e.midPointX + ", " + e.midPointY);
 		}
 	 	
 		
@@ -177,6 +178,7 @@ var PinchLayer = Ext.extend(Ext.Container,
 	 	var c = calcColor(PinchLayer.current, PinchLayer.max);
 	 	
 	 	PinchLayer.tagPanel.updateTags(PinchLayer.current, PinchLayer.level, zoom, c);
+	 	
 		this.update("<div id=\"tagContainer\" class=\"test\" style=\"background-color: #"+c+";\">zoomstep: "+ PinchLayer.current +"/"+PinchLayer.max+" | pinchPos: (" +PinchLayer.pinchPos[0]+ ","+PinchLayer.pinchPos[1]+ ") | zoom: "+zoom+ "</div>");
 	},
 	
