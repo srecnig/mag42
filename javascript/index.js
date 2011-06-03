@@ -1,3 +1,4 @@
+//globals
 var DEBUG_OUTPUT = true;
 
 var rootPanel, tagstore;

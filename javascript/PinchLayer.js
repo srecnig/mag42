@@ -1,13 +1,13 @@
 var ENABLE_DRAG = false;
+var PINCH_STEP = 10;
+var PINCH_MIN = 30;
+var PINCH_MAX = 2000;
 
 var PinchLayer = Ext.extend(Ext.Container, 
 {
 	// @privat
 	initComponent: function() 
 	{
-		PinchLayer.min = 30;
-		PinchLayer.max = 2000;
-		PinchLayer.step = 5;
 		PinchLayer.current = 10;
 		PinchLayer.alpha = 1;
 		PinchLayer.level = 0;
@@ -135,12 +135,12 @@ var PinchLayer = Ext.extend(Ext.Container,
 	
 	getZoomFactor: function()
 	{
-		return PinchLayer.current/PinchLayer.min;
+		return PinchLayer.current/PINCH_MIN;
 	},
 
 	/**
 	 * On pinch destroy the object
-	 *
+	 *bla
 	 * @param {} e
 	 * @param {} el
 	 * @param {} obj
@@ -149,13 +149,13 @@ var PinchLayer = Ext.extend(Ext.Container,
 	{
 		if(e.deltaScale > 0)
 		{
-			PinchLayer.current += PinchLayer.step;
-			PinchLayer.current = Math.min(PinchLayer.max, PinchLayer.current);    
+			PinchLayer.current += PINCH_STEP;
+			PinchLayer.current = Math.min(PINCH_MAX, PinchLayer.current);    
 	    }
 		else
 		{
-			PinchLayer.current -= PinchLayer.step;
-			PinchLayer.current = Math.max(PinchLayer.min, PinchLayer.current);
+			PinchLayer.current -= PINCH_STEP;
+			PinchLayer.current = Math.max(PINCH_MIN, PinchLayer.current);
 	    }
 		
 		
@@ -174,12 +174,12 @@ var PinchLayer = Ext.extend(Ext.Container,
 		}
 	 	
 		
-		var zoom = PinchLayer.current/PinchLayer.min;
-	 	var c = calcColor(PinchLayer.current, PinchLayer.max);
+		var zoom = PinchLayer.current/PINCH_MIN;
+	 	var c = calcColor(PinchLayer.current, PINCH_MAX);
 	 	
 	 	PinchLayer.tagPanel.updateTags(PinchLayer.current, PinchLayer.level, zoom, c);
 	 	
-		this.update("<div id=\"tagContainer\" class=\"test\" style=\"background-color: #"+c+";\">zoomstep: "+ PinchLayer.current +"/"+PinchLayer.max+" | pinchPos: (" +PinchLayer.pinchPos[0]+ ","+PinchLayer.pinchPos[1]+ ") | zoom: "+zoom+ "</div>");
+		this.update("<div id=\"tagContainer\" class=\"test\" style=\"background-color: #"+c+";\">zoomstep: "+ PinchLayer.current +"/"+PINCH_MAX+" | pinchPos: (" +PinchLayer.pinchPos[0]+ ","+PinchLayer.pinchPos[1]+ ") | zoom: "+zoom+ "</div>");
 	},
 	
 	onPinchEnd: function(e, el, obj)
