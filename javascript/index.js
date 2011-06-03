@@ -132,19 +132,37 @@ Ext.setup
             listeners:
             {
                 
-                    itemdoubletap:  function(list_object, index, item, event)
-                    {
-                        // add new tag to viewport                   
-                        var new_tag = new Tag();
-		                new_tag.setName(list_object.store.getAt(index).get('tagname'), 0);
-		                new_tag.setPos(500,500);
-		                tagPanel.addTag(new_tag);
-		                // missing: add to viewport-store
-		                
-		                // remove tag from taglist-store
-                        list_object.store.removeAt(index);
-                    }
+                itemswipe:  function(list_object, index, item, event)
+                {
+                    
+                    console.log("swipe happened at:" + event.startX + "/" + event.startY);
+
+                    /*
+                    var new_tag = new Tag();
+                    new_tag.initTag(list_object.store.getAt(index).get('tagname'), 0, 100, 450)
+                    tagPanel.addTag(new_tag);
+                    */                  
+                    // add new tag to viewport  
+                    /*                 
+                    
+
+                    // missing: add to viewport-store
+                    
+                    // remove tag from taglist-store
+                    list_object.store.removeAt(index);
+                    */
+                },
                 
+                /*
+                el:
+                {
+                    touchstart: function(event, html, obj)
+                    {
+                        console.log("touch happened at " + event.startX);
+                    },
+                },
+                */ 
+                   
             }
         });
                 
