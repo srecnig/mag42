@@ -295,11 +295,14 @@ var TagPanel = Ext.extend(Ext.Panel,
 		var t1 = new Tag();
 		var t2 = new Tag();
 		var c1 = new Tag();
+		var cc1 = new Tag();
 		
 		t1.initTag("SPORTS", 0, 100, 100);
 		t2.initTag("TECHNOLOGY", 0, 400, 300);
 		c1.initTag("Bundesliga", 1);
+		cc1.initTag("Fc Bayern", 2);
 		
+		c1.addChild(cc1);
 		t1.addChild(c1);
 		
 		
