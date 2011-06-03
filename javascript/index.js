@@ -1,3 +1,5 @@
+var DEBUG_OUTPUT = true;
+
 var rootPanel, tagstore;
 
 Ext.regModel('Tag', {fields: ['tagname']});

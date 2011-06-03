@@ -163,13 +163,13 @@ var PinchLayer = Ext.extend(Ext.Container,
 		
 		//console.log("pinchlevel: " + PinchLayer.level + " pinchSize: " + PinchLayer.current);
 	 	
-		if(PinchLayer.pinchStart)
+	 	if(PinchLayer.pinchStart)
 		{
 			PinchLayer.pinchPos[0] = e.midPointX;
 			PinchLayer.pinchPos[1] = e.midPointY;
 			PinchLayer.tagPanel.onPinchStart(e.midPointX, e.midPointY);
 			PinchLayer.pinchStart = false;
-			
+			//pstart = true;
 			//console.log("pinchLayer -> pinchStart: " + e.midPointX + ", " + e.midPointY);
 		}
 	 	
