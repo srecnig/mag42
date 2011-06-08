@@ -27,7 +27,7 @@
 .pinchLayer
 {
 	position: absolute;
-	z-index: 1000;
+	z-index: 1;
 	top:0px; left:0px;
 	color: #ffffff;
 	background-color: #fdfc84;
