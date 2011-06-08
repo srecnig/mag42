@@ -1,31 +1,45 @@
-var ORIGIN = new Object(); ORIGIN.x = 0; ORIGIN.y = 0;
-var MAX_FONT_SIZE = 200;
-
-
-
 function vec2dis(ax, ay, bx, by)
 {
 	return Math.floor ( Math.sqrt( Math.pow(bx - ax, 2) + Math.pow(by - ay, 2) ) );
 } 
 
+function calcAlpha(x)
+{
+	var y = ( Math.cos(PI*x) + 1 ) / 2;
+	y = Math.round( y * 1000 ) / 1000;
+	return y;
+}
+
+function calcFontSize(x)
+{
+	var y = (x/2) * MAX_FONT_SIZE;
+	return y;
+}
+
+function createTagID()
+{
+	TAG_ID_COUNTER++;
+	var id = "tag_" + TAG_ID_COUNTER;
+	
+	return id;
+}
+
 //TAG
 Tag = Ext.extend(Ext.Container, 
 {
 	name: "",
+	debugCLS: "tag",
 	tagID: "",
-	maxSize: 200,
-	size: 30,			//pinch size
-	alpha: 1,
-	layer: 0,			//layer ebene wo sich tag befindet, layer 0 = oberste ebene
-	level: 0,			//aktuelle level ebene laut pinch
 	dis: 0,					
 	initX: 0,			//initial x position
 	initY: 0,			//initial y position
 	tagWidth: 0,
 	tagHeight: 0,
-	tagFontSize: 0,
+	tagFontSize: DEF_FONT_SIZE,
 	tagAlpha: 0,
-	tagLayer: 0,
+	tagLayer: 0,		//layer ebene wo sich tag befindet, layer 0 = oberste ebene
+	tagCSS: TAG_CSS,
+	tagZindex: TAG_ZINDEX, 
 	pinchX: 0,			//pinch x position
 	pinchY: 0,			//pinch x position
 	pinchLevel: 0,
@@ -34,41 +48,37 @@ Tag = Ext.extend(Ext.Container,
 	{
 		var config = 
 		{
-	        centered: true,
-	        modal: true
-		};
+	        x: 0,
+	        y: 0,
+	        draggable: true
+	  	};
 		
 		Ext.apply(this, config, this.initialConfig);
  
         Tag.superclass.initComponent.call(this);
-		Tag.childTags = new Array();
 	},
 	
 	initTag: function(name, layer, posX, posY)
 	{
 		this.name = name;
 		this.tagLayer = layer;
-		this.tagID = layer + "_" + name;
-				
-		this.initX = posX;
-		this.initY = posY;
+		this.tagID = createTagID();//layer + "_" + name;
+		this.id = this.tagID + "_container";
+
+		if(posX!=null)
+		{
+			this.initX = posX;
+			this.initY = posY;
+		}
 		
-		//console.log("mid: " + this.getMiddlePos()[0] + ", " + this.getMiddlePos()[1]);
-		
-		this.setPos(posX, posY);
-		this.updateTag(this.size, this.alpha, 1);
-	},
-	
-	makeDraggable: function()
-	{
-	   this.draggable = true;
+		this.setPos(this.initX, this.initY);
+		this.updateTag(0,0);
 	},
 		
 	setPos: function(x,y)
 	{
 		this.x = x;
 		this.y = y;
-
 		this.setPosition(x, y);
 	},
 	
@@ -81,71 +91,91 @@ Tag = Ext.extend(Ext.Container,
 		return pos;
 	},
 	
-	updateTag: function(size, level, zoom)
+	updateTag: function(zoom_ratio, zoom_level)
 	{
-		this.size = size;
-		this.pinchLevel = level;
-				
-		if( this.pinchLevel > this.layer+1 )
+		if( Math.abs(this.tagLayer-zoom_level) < 2)
 		{
-			this.tagAlpha = 0;
-		}
-		else
-		{
-			if( this.pinchLevel != 0 )	this.tagFontSize = Math.floor(size/level);
-			else 						this.tagFontSize = Math.floor(size);
-		
-			this.tagAlpha = 1 - ( this.tagFontSize ) / MAX_FONT_SIZE;
-		}
-				
-		//console.log("Tag->updateTag "+this.name+" z: " + zoom);
-
-		if(zoom!=1) this.calcPos(zoom);
-		
-		if(this.tagFontSize < MAX_FONT_SIZE)
-		{
-			this.update("<div id=\"" + this.tagID + "\" class=\"layer"+this.tagLayer+"\" style=\" opacity: " + this.tagAlpha + ";\"><span style=\"font-size:" + this.tagFontSize + "px\">"+this.name+"</span></div>");
-		}
-		else
-		{
-			this.update("");
-		}
 			
+			var x = zoom_ratio;
+			var s = zoom_ratio;
+					
+			//gleiche eben wie tag
+			if(this.tagLayer == zoom_level)
+			{
+				x -= 0.5;
+				s += 0.5;
+				this.tagAlpha = calcAlpha(x);
+				this.tagFontSize = calcFontSize(s);
+				this.tagCSS = "tag_active";
+				this.tagZindex = TAG_ZINDEX;
+			}
+						
+			//tag eine ebene ueberhalb von aktueller ebene
+			else if(this.tagLayer+1 == zoom_level)
+			{
+				x = x/2 + 0.5;
+				s = 1.5 + s/2;
+				this.tagAlpha = calcAlpha(x);
+				this.tagFontSize = calcFontSize(s);
+				this.tagCSS = "tag_inactive";
+				this.tagZindex = TAG_ZINDEX+1;
+			}
+	
+			//tag eine ebene unterhalb von aktueller ebene
+			else if(this.tagLayer-1 == zoom_level)
+			{
+				x = x/2 - 1;
+				s = s/2;
+				this.tagAlpha = calcAlpha(x);
+				this.tagFontSize = calcFontSize(s);
+				this.tagCSS = "tag_inactive";
+				this.tagZindex = TAG_ZINDEX-1;
+			}
+						
+			this.drawTag();
+		}
 		
-		this.updateChildren(zoom);
+		this.calcPos(zoom_ratio, zoom_level);
+		this.updateChildren(zoom_ratio, zoom_level);
 	},
 	
-	
-	calcPos: function(z)
+	//draws tag
+	drawTag: function()
 	{
-		var tx = 0;
-		var ty = 0;
-		var corr = 20;
-		
-		this.dis = vec2dis(this.initX, this.initY, this.pinchX, this.pinchY);
-		
-		//console.log(this.name + " before: initialPos(" + this.initialPos.x + ", " + this.initialPos.y + ") pinchPos(" + this.pinchPos.x + ", " + this.pinchPos.y + ") dis: " + this.dis + " zoom: " + z);
-		
-		if( ( this.initX + this.w/2 ) >= this.pinchX)
+		this.update('<div id="' + this.tagID  + '"' +
+				      'class="' + this.tagCSS + '"' +
+				      'style=" z-index:' + this.tagZindex + '; opacity:' + this.tagAlpha + ';">' +	
+				      '<span style="font-size:' + this.tagFontSize + 'em">' +this.name+ '</span>'+
+				    '</div>');
+	
+		this.updateDimensions();
+	},
+	
+	updateChildren: function(zoom_ratio, zoom_level)
+	{
+		for(var i=0; i < this.items.length; i++)
 		{
-			tx = this.initX + this.w/2  + this.dis * z/corr;
+			this.getComponent(i).updateTag(zoom_ratio, zoom_level);
 		}
-		else
-		{
-			tx = this.initX - this.dis * z/corr;
-		}
+		this.doLayout();
+	},
+	
+	calcPos: function(zoom_ratio, zoom_level)
+	{
+		//richtungsvektor zw pinchPos und initPos berechnen
+		var mx = this.pinchX - this.initX;
+		var my = this.pinchY - this.initY;
+		var norm = Math.sqrt(mx*mx + my*my); 
 		
-		if( ( this.initY + this.h/2 ) >= this.pinchY)
-		{
-			ty =  this.initY + this.h/2 + this.dis * z/corr;
-		}
-		else
-		{
-			ty =  this.initY + this.h/2 - this.dis * z/corr;
-		}
+		mx = mx/norm;
+		my = my/norm;
+
+		var dis = vec2dis(this.initX, this.initY, this.pinchX, this.pinchY);
 		
-		this.setPos(tx, ty);
-		//console.log(this.name + " after: tagPos(" + this.x + ", " + this.y + ") pinchPos(" + this.pinchPos.x + ", " + this.pinchPos.y + ") dis: " + this.dis + " zoom: " + z);
+		var tx = ( ( zoom_level + zoom_ratio) / ( this.tagLayer+1 ) ); // *  mx
+		
+		this.dis = "" + tx;// + ", " + my; //vec2dis(this.initX, this.initY, this.pinchX, this.pinchY);
+
 	},
 	
 	onPinchStart: function(px, py)
@@ -153,55 +183,47 @@ Tag = Ext.extend(Ext.Container,
 		this.pinchX = px;
 		this.pinchY = py;
 		
-		//console.log(this.name + " pinchStart: initialPos(" + this.initialPos.x + ", " + this.initialPos.y + ") pinchPos(" + this.pinchPos.x + ", " + this.pinchPos.y + ") dis: " + this.dis);
-		//console.log("TagPanel.onPinchStart: p(" + this.pinchPos.x + "," +  this.pinchPos.y + ") - t(" + this.x + "," + this.y + ") -> " + this.dis );
+		//console.log("TagPanel.onPinchStart: p(" + this.pinchX+ "," +  this.pinchY + ") - t(" + this.x + "," + this.y + ") -> " + this.dis );
 	},
 	
 	afterRender: function() 
 	{
 		Tag.superclass.afterRender.call(this);
-		this.getWidth();
-		this.getHeight();
 	},
 	
-
-	getWidth: function()
+	updateDimensions: function()
 	{
-		var div = document.getElementById(this.tag_id);
+		var div = Ext.getDom(this.tagID);
 		
-		if(div != null)
+		if(div!=null)
 		{
-			this.w = div.clientWidth;
+			this.tagWidth = div.clientWidth;
+			this.tagHeight = div.clientHeight;
 		}
 		else
 		{
-			this.w = 0;
+			this.tagWidth = 0;
+			this.tagHeight = 0;
 		}
 		
-		return  this.w;
+		this.doLayout();
+	},
+	
+	getWidth: function()
+	{
+		return this.tagWidth;
 	},
 	
 	getHeight: function()
 	{
-		var div = document.getElementById(this.tag_id);
-		
-		if(div != null)
-		{
-			this.h = div.clientHeight;
-		}
-		else
-		{
-			this.h = 0;
-		}
-				
-		return  this.h;
+		return this.tagHeight;
 	},
-	
+
 	getMiddlePos: function()
 	{
 		var pos = new Array(0,0);
-		pos[0] = this.x + this.w/2;
-		pos[1] = this.y + this.y/2;
+		pos[0] = this.x + this.tagWidth/2;
+		pos[1] = this.y + this.tagHeight/2;
 		
 		return pos;
 	},
@@ -209,9 +231,12 @@ Tag = Ext.extend(Ext.Container,
 	addChild: function(c)
 	{
 		this.add(c);
-		this.updateChildren(1);
+		this.doLayout();
+		//this.updateChildren(0,0);
 	},
 
+	
+	
 	getChild: function(nr)
 	{
 		if( nr < this.items.length )
@@ -227,15 +252,6 @@ Tag = Ext.extend(Ext.Container,
 	getChildNr: function()
 	{
 		return this.items.length;
-	},
-	
-	updateChildren: function(zoom)
-	{
-		for(var i=0; i < this.items.length; i++)
-		{
-			this.getComponent(i).updateTag(this.tagFontSize/2, this.level, zoom);
-		}
-		this.doLayout();
 	}
 });
 
@@ -248,6 +264,7 @@ var TagPanel = Ext.extend(Ext.Panel,
 	y: 0,
 	startX:0,
 	startY:0,
+	tagsDragabble: true,
 	
 	// @privat
 	initComponent: function() 
@@ -276,10 +293,7 @@ var TagPanel = Ext.extend(Ext.Panel,
 	{
 		for(var i=0; i<this.items.length; i++)
 		{
-			//var tmp = this.getComponent(i);
-			//console.log(tmp.name + " before: initialPos(" + tmp.initialPos.x + ", " + tmp.initialPos.y + ") pinchPos(" + tmp.pinchPos.x + ", " + tmp.pinchPos.y + ") dis: " + tmp.dis);
 			this.getComponent(i).onPinchStart(px,py);
-			//console.log(tmp.name + " after: initialPos(" + tmp.initialPos.x + ", " + tmp.initialPos.y + ") pinchPos(" + tmp.pinchPos.x + ", " + tmp.pinchPos.y + ") dis: " + tmp.dis );
 		}
 	},
 	
@@ -291,7 +305,7 @@ var TagPanel = Ext.extend(Ext.Panel,
 	
 	setPos: function(dx, dy)
 	{
-		console.log("pos before: " + this.x + ", " + this.y);
+//		console.log("pos before: " + this.x + ", " + this.y);
 			
 		this.x = this.startX + dx;
 		this.y = this.startY + dy;
@@ -300,48 +314,66 @@ var TagPanel = Ext.extend(Ext.Panel,
 		
 		//console.log("move tag panel: " + this.x + ", " + this.y);
 		//console.log("pos after: " + this.x + ", " + this.y);
-		this.update("<div style=\"position:absolute; x:0; y:0; z-index:1008; \"><h1>TOUCH:" + this.x + ", " + this.y +"</h1></div>");
+//		this.update("<div style=\"position:absolute; x:0; y:0; z-index:1008; \"><h1>TOUCH:" + this.x + ", " + this.y +"</h1></div>");
 	},
 	
 	createTags: function()
 	{
 		var t1 = new Tag();
-		var t2 = new Tag();
+		//var t2 = new Tag();
 		var c1 = new Tag();
-		var c2 = new Tag();
+		//var c2 = new Tag();
 		var cc1 = new Tag();
+		var ccc1 = new Tag();
 		
-		t1.initTag("SPORTS", 0, 100, 100);
-		t2.initTag("TECHNOLOGY", 0, 400, 300);
-		c1.initTag("Bundesliga", 1);
-		c2.initTag("Apple", 1);
-		cc1.initTag("Fc Bayern", 2);
+		t1.initTag("SPORTS", 0, 200, 200);
+		//t2.initTag("TECHNOLOGY", 0, 400, 300);
+		c1.initTag("Bundesliga", 1,200,200);
+		//c2.initTag("Apple", 1);
+		cc1.initTag("Fc Bayern", 2, 200,200);
+		ccc1.initTag("Beckenbauer", 3, 200,200);
 		
-		c1.addChild(cc1);
+		/*
 		t1.addChild(c1);
-		t2.addChild(c2);
+		c1.addChild(cc1);
+		cc1.addChild(ccc1);
+		*/
+		//t2.addChild(c2);
+		
 		
 		this.addTag(t1);
-		this.addTag(t2);
+		this.addTag(c1);
+		this.addTag(cc1);
+		this.addTag(ccc1);
+	
+		/*
+		DEBUG_PANEL.addDebugItem(t1);
+		DEBUG_PANEL.addDebugItem(c1);
+		DEBUG_PANEL.addDebugItem(cc1);
+		DEBUG_PANEL.updateDebugItems();
+		*/
 	},
 
-	//s pinchSize
-	//l pinchLevel
-	//p pinchPos
-	//c pinchColor
-	//ps pinchStart
-	//px pinchX
-	//py pinchY
-	updateTags: function(s, l, z, c)
+	setTagsDraggable: function(value)
+	{
+		this.tagsDragabble = value;
+		
+		for(var i=0; i<this.items.length; i++)
+		{
+			this.getComponent(i).setDraggable(this.tagsDragabble);
+		}
+	},
+	
+	updateTags: function(zoom_ratio, zoom_level)
 	{
 		for(var i=0; i<this.items.length; i++)
 		{
-			//if(ps) this.getComponent(i).onPinchStart(px, py);
-//			console.log(this.getComponent(i).name + " before up: initialPos(" + this.getComponent(i).initialPos.x + ", " + this.getComponent(i).initialPos.y + ") pinchPos(" + this.getComponent(i).pinchPos.x + ", " + this.getComponent(i).pinchPos.y + ") dis: " + this.getComponent(i).dis);
-			this.getComponent(i).updateTag(s, l, z);
-//			console.log(this.getComponent(i).name + " after up: initialPos(" + this.getComponent(i).initialPos.x + ", " + this.getComponent(i).initialPos.y + ") pinchPos(" + this.getComponent(i).pinchPos.x + ", " + this.getComponent(i).pinchPos.y + ") dis: " + this.getComponent(i).dis);
-			//this.getComponent(i).updateChildren(z);
+			//console.log("mother " + i + " draw " + this.getComponent(i).name);
+			this.getComponent(i).updateTag(zoom_ratio, zoom_level);
 		}
+		
+		if(DEBUG_ON) 
+			DEBUG_PANEL.updateDebugItems();
 	},
 	
 	updateTagsLayout: function()
@@ -355,3 +387,5 @@ var TagPanel = Ext.extend(Ext.Panel,
     	this.doLayout();
     }
 });
+
+Ext.reg('TagPanel', TagPanel);

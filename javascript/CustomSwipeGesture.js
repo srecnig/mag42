@@ -34,7 +34,7 @@ Ext.gesture.CustomSwipeGesture = Ext.extend(Ext.gesture.Gesture, {
                deltaTime: deltaTime,
                deltaX: deltaX,
                startX: touch.pageX,
-               startY: touch.pageY,
+               startY: touch.pageY
            });
  
            this.stop();
