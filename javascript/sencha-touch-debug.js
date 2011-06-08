@@ -18862,8 +18862,6 @@ Ext.gesture.Swipe = Ext.extend(Ext.gesture.Gesture, {
                distance: absDeltaX,
                deltaTime: deltaTime,
                deltaX: deltaX,
-               startX: touch.pageX,
-               startY: touch.pageY,
            });
    
            this.stop();
