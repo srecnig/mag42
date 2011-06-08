@@ -141,7 +141,6 @@ Ext.setup
                     new_tag.initTag(list_object.store.getAt(index).get('tagname'), 0, 500, event.startY);
                     //new_tag.style = "z-index = 1005;";
                     new_tag.makeDraggable();
-                    //pinchLayer.disable();
                     tagPanel.addTag(new_tag);
                                     
                     // add new tag to viewport  
