@@ -58,6 +58,11 @@ Tag = Ext.extend(Ext.Container,
 		this.setPos(posX, posY);
 		this.updateTag(this.size, this.alpha, 1);
 	},
+	
+	makeDraggable: function()
+	{
+	   this.draggable = true;
+	},
 		
 	setPos: function(x,y)
 	{

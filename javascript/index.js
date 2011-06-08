@@ -137,11 +137,11 @@ Ext.setup
                     
                     console.log("swipe happened at:" + event.startX + "/" + event.startY);
 
-                    /*
                     var new_tag = new Tag();
-                    new_tag.initTag(list_object.store.getAt(index).get('tagname'), 0, 100, 450)
+                    new_tag.initTag(list_object.store.getAt(index).get('tagname'), 0, event.startX, event.startY);
+                    //new_tag.makeDraggable();
                     tagPanel.addTag(new_tag);
-                    */                  
+                                    
                     // add new tag to viewport  
                     /*                 
                     
