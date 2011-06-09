@@ -138,24 +138,10 @@ Ext.setup
                     console.log("swipe happened at:" + event.startX + "/" + event.startY);
 
                     var new_tag = new Tag();
-                    new_tag.initTag(list_object.store.getAt(index).get('tagname'), 0, 500, event.startY);
-                    //new_tag.style = "z-index = 1005;";
-                    new_tag.makeDraggable();
-//                  merge conflict was here.
-//                    new_tag.initTag(list_object.store.getAt(index).get('tagname'), 0, 100, event.startY);
-//                                  //new_tag.makeDraggable();
+                    new_tag.initTag(list_object.store.getAt(index).get('tagname'), 0, 500, event.startY - 50);
                     tagPanel.addTag(new_tag);
-                    new_tag.setDraggable(true);
-               
-                    // add new tag to viewport  
-                    /*                 
-                    
-
-                    // missing: add to viewport-store
-                    
-                    // remove tag from taglist-store
                     list_object.store.removeAt(index);
-                    */
+                    new_tag.setDraggable(true);
                 }
                 
                 /*
