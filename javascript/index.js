@@ -1,12 +1,10 @@
 //globals
-var DEBUG_OUTPUT = true;
-
 var rootPanel, tagstore;
 
-Ext.regModel('Tag', {fields: [{name: 'id'}, {name: 'tagname', type: 'string'}, ]});
+Ext.regModel('Tags', {fields: [{name: 'id'}, {name: 'tagname', type: 'string'}, ]});
 
 tagstore = new Ext.data.Store({
-    model: 'Tag', 
+    model: 'Tags', 
     sorters: 'tagname',
     getGroupString: function(record) {
         return record.get('tagname')[0];
@@ -34,11 +32,13 @@ Ext.setup
     onReady: function()
     {   	
         // panels that build our application
-    	var move_switch, pinchLayer, tagPanel;
-    	var bottom_thingy, bottom_thingy_content, bottom_bildleiste;
+    	var pinchLayer, tagPanel, debugPanel;
+    	var menuButtonHandler, menuButtons, menu_bar;
+    	var bottom_thingy, bottom_thiny_header, bottom_thingy_content, bottom_bildleiste;
     	var side_thingy, side_thingy_list;
     	
     	// booleans for global state
+    	var all_draggable = true;
     	var side_thingy_enabled = true;
     	
     	// Bildleiste als Header
@@ -89,7 +89,6 @@ Ext.setup
 			'</div>',
             dock: "top"
         });
-
         
         // content of bottom panel
         bottom_thingy_content = new Ext.Panel({
@@ -117,7 +116,8 @@ Ext.setup
                 }
             },
             dockedItems: [bottom_bildleiste],
-            items: [bottom_thingy_content]
+ //           items: [bottom_thingy_header, bottom_thingy_content]
+             items: [bottom_thingy_content]
        });
         
         // list for side panel
@@ -141,8 +141,12 @@ Ext.setup
                     new_tag.initTag(list_object.store.getAt(index).get('tagname'), 0, 500, event.startY);
                     //new_tag.style = "z-index = 1005;";
                     new_tag.makeDraggable();
+//                  merge conflict was here.
+//                    new_tag.initTag(list_object.store.getAt(index).get('tagname'), 0, 100, event.startY);
+//                                  //new_tag.makeDraggable();
                     tagPanel.addTag(new_tag);
-                                    
+                    new_tag.setDraggable(true);
+               
                     // add new tag to viewport  
                     /*                 
                     
@@ -152,7 +156,7 @@ Ext.setup
                     // remove tag from taglist-store
                     list_object.store.removeAt(index);
                     */
-                },
+                }
                 
                 /*
                 el:
@@ -169,65 +173,80 @@ Ext.setup
                 
         // actual side panel
         side_thingy = new Ext.Panel({
-            style: "background-color: #ad1aca;color: #ffffff; z-index: 1001",
+            style: "background-color: #ad1aca;color: #ffffff; z-index: 10",
             width: "300",
             dock: "right",
             showAnimation: {type: "slide", direction: "left", duration: 1000},
             items: [side_thingy_list]
         });
-            	         
-        move_switch = new Ext.Panel
-        ({
-            html: "dragging: on",
-            width: "100",
-            height: "50",
-            listeners:
-            {
-                el:
-                {
-                    tap:    function() 
-                    { 
-                        
-                        if (side_thingy_enabled == true)
-                        {
-                            this.update("dragging: off"); 
-                            side_thingy_enabled = false;
-                            side_thingy.hide();
-                        }
-                        else
-                        {
-                            // add draggability to _all_ tags
-                            this.update("dragging: on");
-                            side_thingy_enabled = true; 
-                            side_thingy.show();
-                        }
-                        
-                    }
-                }
-            }
-                   
-        }); 
         
+        menuButtonHandler = function(button,event)
+        {
+        	if(button.text == "view")
+        	{
+        		side_thingy_enabled = false;
+                side_thingy.hide();
+                pinchLayer.enablePinchLayer(true);
+                tagPanel.setTagsDraggable(false);
+        	}
+        	if( button.text == "edit")
+        	{
+        		side_thingy_enabled = true; 
+                side_thingy.show();
+                pinchLayer.enablePinchLayer(false);
+                pinchLayer.reset();
+                tagPanel.setTagsDraggable(true);
+        	}
+        };
+        
+        menuButtons = 
+        [{
+         	xtype: "segmentedbutton",
+         	items:
+         	[
+         	 	{
+         	 		text: "view",
+         	 		handler: menuButtonHandler
+         	 	},
+         	 	{
+         	 		text: "edit",
+         	 		handler: menuButtonHandler,
+         	 		pressed: true
+        	 	}
+         	]
+        }];
+        
+        menu_bar = new Ext.Toolbar
+        ({
+            dock : 'top',
+            style: "z-index:2000;",
+            items: [menuButtons]
+        });
+             
+        if(DEBUG_INDEX) console.log("create pinch layer");
         pinchLayer = new PinchLayer
         ({
         	fullscreen:true,
         	layout:{type:'auto'},
         	cls: "pinchLayer"
         });
-        
+
+        if(DEBUG_INDEX) console.log("create tagPanel");
         tagPanel = new TagPanel
         ({
         	layout:{type:'auto'}
         });
             
+        if(DEBUG_INDEX) console.log("id: " + tagPanel.id);
         pinchLayer.setParent(tagPanel);
+        DEBUG_PANEL.addDebugItem(pinchLayer);
         
         viewport = new Ext.Panel
         ({
         	fullscreen:true,
         	layout:{type:'auto'},
         	style: "background-image: url(gfx/bg.png); background-repeat: repeat;",
-        	items:[move_switch, tagPanel],
+        	items:[tagPanel],
         	dockeditems:[pinchLayer]
         });
 
@@ -237,7 +256,10 @@ Ext.setup
     		fullscreen:true, 
     		styleHtmlContent: true,
             items:[viewport],
-    		dockedItems: [ bottom_thingy, side_thingy ]
+    		dockedItems: [menu_bar, bottom_thingy, side_thingy ]
     	});
+        
+    	pinchLayer.initTags();
+    	tagPanel.setTagsDraggable(true);
     }
 });

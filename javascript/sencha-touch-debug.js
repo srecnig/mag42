@@ -18850,6 +18850,7 @@ Ext.gesture.Swipe = Ext.extend(Ext.gesture.Gesture, {
             absDeltaY = Math.abs(deltaY),
             absDeltaX = Math.abs(deltaX),
             deltaTime = e.timeStamp - this.startTime;
+
         
         if (absDeltaY - absDeltaX > 3 || deltaTime > this.swipeTime) {
             this.unlock('drag', 'dragstart', 'dragend');
@@ -18861,7 +18862,7 @@ Ext.gesture.Swipe = Ext.extend(Ext.gesture.Gesture, {
                direction: (deltaX < 0) ? 'left' : 'right',
                distance: absDeltaX,
                deltaTime: deltaTime,
-               deltaX: deltaX,
+               deltaX: deltaX
            });
    
            this.stop();
