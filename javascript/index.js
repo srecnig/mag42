@@ -140,8 +140,9 @@ Ext.setup
 
                     var new_tag = new Tag();
                     new_tag.initTag(list_object.store.getAt(index).get('tagname'), 0, 100, event.startY);
-                    //new_tag.makeDraggable();
+                                  //new_tag.makeDraggable();
                     tagPanel.addTag(new_tag);
+                    new_tag.setDraggable(true);
                                     
                     // add new tag to viewport  
                     /*                 
@@ -286,5 +287,6 @@ Ext.setup
     	});
     	
     	pinchLayer.initTags();
+    	tagPanel.setTagsDraggable(true);
     }
 });

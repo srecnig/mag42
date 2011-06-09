@@ -51,6 +51,12 @@
 	color: #ff0000;
 }
 
+.tagPanel
+{
+	background-color:#ff0000;
+	z-index:2000;
+}
+
 .debugItem_tag, .debugItem_pinchLayer
 {
 	color: #cfcfcf;
@@ -160,14 +166,3 @@
 	opacity: 1;
 }
 
-.helper
-{
-	position: absolute;
-	width: 2048px;
-	height: 2048px;
-	left: -1024px;
-	top: - 1024px;
-	background-image: url(../gfx/back.png);
-	background-repeat: no-repeat;
-	z-index:1050;
-}

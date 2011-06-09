@@ -49,8 +49,7 @@ Tag = Ext.extend(Ext.Container,
 		var config = 
 		{
 	        x: 0,
-	        y: 0,
-	        draggable: true
+	        y: 0
 	  	};
 		
 		Ext.apply(this, config, this.initialConfig);
@@ -73,6 +72,7 @@ Tag = Ext.extend(Ext.Container,
 		
 		this.setPos(this.initX, this.initY);
 		this.updateTag(0,0);
+		this.setDraggable(true);
 	},
 		
 	setPos: function(x,y)
@@ -185,7 +185,7 @@ Tag = Ext.extend(Ext.Container,
 		
 		//console.log("TagPanel.onPinchStart: p(" + this.pinchX+ "," +  this.pinchY + ") - t(" + this.x + "," + this.y + ") -> " + this.dis );
 	},
-	
+		
 	afterRender: function() 
 	{
 		Tag.superclass.afterRender.call(this);

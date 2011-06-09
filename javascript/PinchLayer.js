@@ -20,7 +20,7 @@ var PinchLayer = Ext.extend(Ext.Panel,
 		var config = 
 		{
 			id: "pinchLayer",
-			baseCls: "pinchLayer_enabled",
+			cls: "pinchLayer_disabled",
 			debugCLS: "pinchLayer",
 			draggable: false
 		};
