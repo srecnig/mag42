@@ -32,7 +32,6 @@ Ext.setup
     onReady: function()
     {   	
         // panels that build our application
-    	var move_switch;
     	var pinchLayer, tagPanel, debugPanel;
     	var menuButtonHandler, menuButtons, menu_bar;
     	var bottom_thingy, bottom_thiny_header, bottom_thingy_content, bottom_bildleiste;
@@ -139,10 +138,12 @@ Ext.setup
                     console.log("swipe happened at:" + event.startX + "/" + event.startY);
 
                     var new_tag = new Tag();
-                    new_tag.initTag(list_object.store.getAt(index).get('tagname'), 0, 100, event.startY);
+                    new_tag.initTag(list_object.store.getAt(index).get('tagname'), 0, 1000, event.startY);
                                   //new_tag.makeDraggable();
+                    new_tag.setDraggable(true);
                     tagPanel.addTag(new_tag);
                     new_tag.setDraggable(true);
+                    new_tag.setPos(100, event.startY);
                                     
                     // add new tag to viewport  
                     /*                 
@@ -176,35 +177,6 @@ Ext.setup
             showAnimation: {type: "slide", direction: "left", duration: 1000},
             items: [side_thingy_list]
         });
-           
-        move_switch = new Ext.Panel
-        ({
-            html: "dragging: on",
-            width: "100",
-            height: "50",
-            listeners:
-            {
-                el:
-                {
-                	tap: function() 
-                    { 
-                		if (side_thingy_enabled == true)
-                        {
-                            this.update("dragging: off"); 
-                            side_thingy_enabled = false;
-                            side_thingy.hide();
-                        }
-                        else
-                        {
-                            // add draggability to _all_ tags
-                            this.update("dragging: on");
-                            side_thingy_enabled = true; 
-                            side_thingy.show();
-                        }
-                    }
-                }
-            }
-        }); 
         
         menuButtonHandler = function(button,event)
         {
@@ -285,7 +257,7 @@ Ext.setup
             items:[viewport],
     		dockedItems: [menu_bar, bottom_thingy, side_thingy ]
     	});
-    	
+        
     	pinchLayer.initTags();
     	tagPanel.setTagsDraggable(true);
     }
