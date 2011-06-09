@@ -29,6 +29,17 @@ var PinchLayer = Ext.extend(Ext.Panel,
 		PinchLayer.superclass.initComponent.call(this);
 	},
 	
+	reset: function()
+	{
+		PinchLayer.pinch_posX = 0;		
+		PinchLayer.pinch_posY = 0;			
+		PinchLayer.pinch_counter = 0;	
+		PinchLayer.pinch_level = 0;		
+		PinchLayer.pinch_value = 0;			
+		PinchLayer.level_zoom_ratio = 0;	
+		PinchLayer.tags.updateTags(PinchLayer.level_zoom_ratio, PinchLayer.pinch_level);
+	},
+	
     setParent: function(par)
     {
     	PinchLayer.tags = par;

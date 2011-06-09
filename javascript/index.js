@@ -138,13 +138,11 @@ Ext.setup
                     console.log("swipe happened at:" + event.startX + "/" + event.startY);
 
                     var new_tag = new Tag();
-                    new_tag.initTag(list_object.store.getAt(index).get('tagname'), 0, 1000, event.startY);
+                    new_tag.initTag(list_object.store.getAt(index).get('tagname'), 0, 100, event.startY);
                                   //new_tag.makeDraggable();
-                    new_tag.setDraggable(true);
                     tagPanel.addTag(new_tag);
                     new_tag.setDraggable(true);
-                    new_tag.setPos(100, event.startY);
-                                    
+               
                     // add new tag to viewport  
                     /*                 
                     
@@ -192,6 +190,7 @@ Ext.setup
         		side_thingy_enabled = true; 
                 side_thingy.show();
                 pinchLayer.enablePinchLayer(false);
+                pinchLayer.reset();
                 tagPanel.setTagsDraggable(true);
         	}
         };
@@ -227,9 +226,7 @@ Ext.setup
         	layout:{type:'auto'},
         	cls: "pinchLayer"
         });
-        
-        
-        
+
         if(DEBUG_INDEX) console.log("create tagPanel");
         tagPanel = new TagPanel
         ({

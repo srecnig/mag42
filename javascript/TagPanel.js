@@ -43,6 +43,7 @@ Tag = Ext.extend(Ext.Container,
 	pinchX: 0,			//pinch x position
 	pinchY: 0,			//pinch x position
 	pinchLevel: 0,
+	childrenTags:null, 
 		
 	initComponent: function() 
 	{
@@ -51,19 +52,24 @@ Tag = Ext.extend(Ext.Container,
 	        x: 0,
 	        y: 0,
 	        width: "0",
-	        height: "0",
-	        listeners:
-	        {
-	        	el:
-	        	{
-	        		dragTagStart: this.onDragTagStart
-	        	}
-	        }
+	        height: "0"
 	  	};
 		
 		Ext.apply(this, config, this.initialConfig);
  
         Tag.superclass.initComponent.call(this);
+        this.addEvents('tagedited');
+        this.addListener
+        ({
+        	el:
+        	{
+        		dragend: function(e)
+        		{
+        			this.fireEvent('tagedited', e.type, e);
+        		},
+        		scope: this
+        	}
+        });
 	},
 	
 	initTag: function(name, layer, posX, posY)
@@ -78,9 +84,11 @@ Tag = Ext.extend(Ext.Container,
 			this.initX = posX;
 			this.initY = posY;
 		}
-		
+		this.childrenTags = new Array();
 		this.setPos(this.initX, this.initY);
 		this.updateTag(0,0);
+		
+		this.on('tagedited', this.onEditEnd);
 		//this.setDraggable(true);
 	},
 		
@@ -195,6 +203,26 @@ Tag = Ext.extend(Ext.Container,
 		//console.log("TagPanel.onPinchStart: p(" + this.pinchX+ "," +  this.pinchY + ") - t(" + this.x + "," + this.y + ") -> " + this.dis );
 	},
 	
+	onEditEnd: function(type, event)
+	{
+		this.initX = this.x = event.pageX;
+		this.initY = this.y = event.pageY;
+		
+		this.updateChildrenAfterEdit(this.x, this.y);
+	},
+	
+	updateChildrenAfterEdit: function(x, y)
+	{
+		for(var i=0; i < this.childrenTags.length; i++)
+		{
+			this.childrenTags[i].initX = x;
+			this.childrenTags[i].initY = y;
+			this.childrenTags[i].setPos(x,y);
+			this.childrenTags[i].updateChildrenAfterEdit(x, y);
+		}
+		this.doLayout();
+	},
+	
 	onDragTagStart: function(event)
 	{
 		console.log("dragTagStart");
@@ -244,18 +272,14 @@ Tag = Ext.extend(Ext.Container,
 	
 	addChild: function(c)
 	{
-		this.add(c);
-		this.doLayout();
-		//this.updateChildren(0,0);
+		this.childrenTags.push(c);
 	},
 
-	
-	
 	getChild: function(nr)
 	{
-		if( nr < this.items.length )
+		if( nr < this.childrenTags.length )
 		{
-			return this.getComponent(i);
+			return this.childrenTags[i];
 		}
 		else
 		{
@@ -344,8 +368,12 @@ var TagPanel = Ext.extend(Ext.Panel,
 		//t2.initTag("TECHNOLOGY", 0, 400, 300);
 		c1.initTag("Bundesliga", 1,200,200);
 		//c2.initTag("Apple", 1);
-		cc1.initTag("Fc Bayern", 2, 200,200);
+		cc1.initTag("FC&nbsp;Bayern", 2, 200,200);
 		ccc1.initTag("Beckenbauer", 3, 200,200);
+		
+		cc1.addChild(ccc1);
+		c1.addChild(cc1);
+		t1.addChild(c1);
 		
 		/*
 		t1.addChild(c1);
@@ -389,11 +417,6 @@ var TagPanel = Ext.extend(Ext.Panel,
 		if(DEBUG_ON) 
 			DEBUG_PANEL.updateDebugItems();
 	},
-	
-	updateTagsLayout: function()
-	{
-		//console.log("-> updateTagsLayout - " + rootPanel.getWidth() + ", " + rootPanel.getHeight());
-	}, 
 	
 	addTag: function(t)
     {
