@@ -1,0 +1,12 @@
+CACHE MANIFEST
+#rev1
+index.html
+css/sencha-touch.css
+css/mag42.css
+javascript/sencha-touch.js
+javascript/DebugPanel.js
+javascript/globals.js
+javascript/TagPanel.js
+javascript/PinchLayer.js
+javascript/CustomSwipeGesture.js
+javascript/index.js
