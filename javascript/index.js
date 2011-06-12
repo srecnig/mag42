@@ -84,7 +84,7 @@ Ext.setup
         	id:"bottomPanel",
             style:  "z-index: 1002;",
             dock: "bottom",
-            draggable: "true",
+            draggable: true,
             height: "75",
             listeners:
             {
@@ -92,17 +92,21 @@ Ext.setup
                 {
                     drag:    function(event, html, obj)
                     {
-                        //this.fireEvent('bottomPanelDrag', event.type, event);
-                    }
+                    	if(event.pageY < 300)
+                    	{
+                    		var div = Ext.getDom(this.id);
+                        	div.style.webkitTransform = "translate3d(0px, -280px, 0px)";
+                    	}
+                    } 
                 }
             },
             dockedItems: [bottom_bildleiste],
- //           items: [bottom_thingy_header, bottom_thingy_content]
             items: [bottom_thingy_content]
        });
         
         // list for side panel
-        side_thingy_list = new Ext.List({
+        side_thingy_list = new Ext.List
+        ({
             style: "background-image: url(gfx/preview_back.png); background-repeat:repeat; z-index: 10;",
             store: tagstore,
             itemTpl: '<div class="list" style="background-image: url(gfx/tag.png);">{tagname}</div>',
@@ -126,7 +130,8 @@ Ext.setup
         });
                 
         // actual side panel
-        side_thingy = new Ext.Panel({
+        side_thingy = new Ext.Panel
+        ({
             style: "color: #ffffff; z-index: 10;  opacity:0.75;",
             width: "300",
             dock: "right",
