@@ -27,7 +27,7 @@
 .pinchLayer_enabled
 {
 	position: absolute;
-	z-index: 1;
+	z-index: 1000;
 	top:0px; left:0px;
 	color: #ffffff;
 	opacity: 0;
@@ -54,7 +54,7 @@
 .tagPanel
 {
 	background-color:#ff0000;
-	z-index:2000;
+	z-index:700;
 }
 
 .debugItem_tag, .debugItem_pinchLayer
@@ -166,3 +166,80 @@
 	opacity: 1;
 }
 
+
+/*########################################*/
+/*PICTURE PREVIEW*/
+
+.picturePreviewPanel
+{
+	margin-top: 25px;
+	height: 50px;
+	width: 2300px;
+}
+
+.picturePreview
+{
+	margin-left:1px;
+	float: left;
+	/* background-color:#00ff00; */
+	background-image:url(../gfx/picture_preview_back.png);
+	background-repeat: no-repeat;
+	padding:3px 3px 3px 3px;
+}
+
+.imgprev
+{
+	width: 54px;
+	height: 38px;
+}
+
+/*########################################*/
+/*ARTICLE PREVIEW*/
+
+.articlePreviewPanel
+{
+	height: 280px;
+	width: 8000px;
+}
+
+.articlePreview
+{
+	margin-left:5px;
+	margin-top:5px;
+	float: left;
+	width: 466px;
+	height: 130px;
+	background-image:url(../gfx/article_preview_back.png);
+	background-repeat: repeat;
+	border-radius: 4px;
+	padding:5px 5px 5px 5px;
+}
+.articlePreviewLeft
+{
+	width: 205px;
+	height: 122px;
+	float:left;
+}
+
+.articlePreviewRight
+{
+	width: 249px;
+	height: 122px;
+	float:left;
+	padding-left:2px;
+	color: #ffffff;
+	font-size: 12px;
+}
+
+.articlePreviewRight h1
+{
+	color: #49b7ff;
+	font-size: 12px;
+	font-weight: bolder;
+}
+
+.artprev
+{
+	width: 190px;
+	height: 118px;
+}

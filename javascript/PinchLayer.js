@@ -97,12 +97,6 @@ var PinchLayer = Ext.extend(Ext.Panel,
 				PinchLayer.tags.setPos(e.deltaX, e.deltaY);
 		}
 	},
-	
-	onPinchStart: function(e,el,obj)
-	{
-		PinchLayer.pinchStart = true;
-		PinchLayer.pinching = true;
-	},
 
 	// @privat
 	afterRender: function() 
@@ -187,6 +181,14 @@ var PinchLayer = Ext.extend(Ext.Panel,
 		
 		this.doLayout();
 	},
+	
+	
+	onPinchStart: function(e,el,obj)
+	{
+		PinchLayer.pinchStart = true;
+		PinchLayer.pinching = true;
+	},
+
 	
 	onPinch: function(e, el, obj) 
 	{
