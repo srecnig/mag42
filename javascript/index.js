@@ -3,10 +3,12 @@ var rootPanel, tagstore;
 
 Ext.regModel('Tags', {fields: [{name: 'id'}, {name: 'tagname', type: 'string'}, ]});
 
-tagstore = new Ext.data.Store({
+tagstore = new Ext.data.Store
+({
     model: 'Tags', 
     sorters: 'tagname',
-    getGroupString: function(record) {
+    getGroupString: function(record) 
+    {
         return record.get('tagname')[0];
     }, 
     data:
@@ -17,8 +19,8 @@ tagstore = new Ext.data.Store({
         {tagname: 'Philosophy'},
         {tagname: 'Politics'},
         {tagname: 'Nonsense'},
-     ]
-    });
+    ]
+});
 
 var viewport;
 
@@ -109,11 +111,12 @@ Ext.setup
         ({
             style: "background-image: url(gfx/preview_back.png); background-repeat:repeat; z-index: 10;",
             store: tagstore,
-            itemTpl: '<div class="list" style="background-image: url(gfx/tag.png);">{tagname}</div>',
+            itemTpl: '<div style="color:#fff;">{tagname}</div>',
             grouped: false,
-            indexBar: false,
+            indexBar: true,
             height: "720",
             itemSelector: "div.list",
+            itemCls: "list",
             listeners:
             {
                 itemswipe:  function(list_object, index, item, event)
@@ -133,7 +136,7 @@ Ext.setup
         side_thingy = new Ext.Panel
         ({
             style: "color: #ffffff; z-index: 10;  opacity:0.75;",
-            width: "300",
+            width: "250",
             dock: "right",
             showAnimation: {type: "slide", direction: "left", duration: 1000},
             items: [side_thingy_list]
