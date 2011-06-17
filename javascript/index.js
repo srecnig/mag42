@@ -36,6 +36,7 @@ Ext.setup
     	var menuButtonHandler, menuButtons, menu_bar;
     	var bottom_thingy, bottom_thiny_header, bottom_thingy_content, bottom_bildleiste;
     	var side_thingy, side_thingy_list;
+    	var trashcan;
     	
     	// booleans for global state
     	var all_draggable = true;
@@ -130,12 +131,11 @@ Ext.setup
             height: "720",
             itemSelector: "div.list",
             listeners:
-            {
-                
+            {       
                 itemswipe:  function(list_object, index, item, event)
                 {
                     
-                    console.log("swipe happened at:" + event.startX + "/" + event.startY);
+                    //console.log("swipe happened at:" + event.startX + "/" + event.startY);
 
                     var new_tag = new Tag();
                     new_tag.initTag(list_object.store.getAt(index).get('tagname'), 0, 500, event.startY - 50);
@@ -144,16 +144,6 @@ Ext.setup
                     new_tag.setDraggable(true);
                 }
                 
-                /*
-                el:
-                {
-                    touchstart: function(event, html, obj)
-                    {
-                        console.log("touch happened at " + event.startX);
-                    },
-                },
-                */ 
-                   
             }
         });
                 
@@ -164,6 +154,27 @@ Ext.setup
             dock: "right",
             showAnimation: {type: "slide", direction: "left", duration: 1000},
             items: [side_thingy_list]
+        });
+        
+        
+        // trashcan
+        trashcan = new Ext.Panel( 
+        {
+            style: "background-color: #ffffff",
+            width: 50,
+            height: 100,
+            dropable: true,
+            
+            listeners: 
+            {
+                /*
+                drop: function(droppable, draggable, ) 
+                {
+                    console.log.('Dropped!');
+                }
+                */
+            }
+            
         });
         
         menuButtonHandler = function(button,event)
@@ -244,6 +255,7 @@ Ext.setup
             items:[viewport],
     		dockedItems: [menu_bar, bottom_thingy, side_thingy ]
     	});
+    	trashcan.setPosition(20,400);
         
     	pinchLayer.initTags();
     	tagPanel.setTagsDraggable(true);
