@@ -15,7 +15,7 @@ var TAG_ID_COUNTER = -1;
 var TAG_CSS = "tag_inactive";
 
 //PinchLayer
-var ENABLE_DRAG = false;
+var ENABLE_DRAG = true;
 var PINCH_STEP = 20;
 var PINCH_MIN = 0;
 var PINCH_MAX = 2000;

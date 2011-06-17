@@ -68,17 +68,8 @@ var PinchLayer = Ext.extend(Ext.Panel,
 	{
 		if(ENABLE_DRAG)
 		{
-			//console.log("touchmove: " + e.deltaX + ", " + e.deltaY);
 			PinchLayer.tags.onDragStart();
 		}
-		
-		/*
-		PinchLayer.level_zoom_ratio += 0.1;
-		PinchLayer.tags.updateTags(PinchLayer.level_zoom_ratio, PinchLayer.pinch_level);
-		console.log("items:" + Ext.ComponentMgr.getCount());
-		console.log("get:" + Ext.get("tag_1").id + ", " + Ext.get("tag_1").width);
-		console.log("domget: " + Ext.getDom("tag_1").id + ", " + Ext.getDom("tag_1").width);
-		*/
 	},
 	
 	onTouchEnd: function(e,el,obj)
@@ -91,17 +82,15 @@ var PinchLayer = Ext.extend(Ext.Panel,
 	
 	onTouchMove: function(e,el,obj)
 	{
+		
 		if(ENABLE_DRAG)
 		{
-			if(!PinchLayer.pinching)
-				PinchLayer.tags.setPos(e.deltaX, e.deltaY);
+			if(e.targetTouches.length < 2)
+			{
+				if(!PinchLayer.pinching)
+					PinchLayer.tags.setPos(e.deltaX, e.deltaY);
+			}
 		}
-	},
-	
-	onPinchStart: function(e,el,obj)
-	{
-		PinchLayer.pinchStart = true;
-		PinchLayer.pinching = true;
 	},
 
 	// @privat
@@ -187,6 +176,14 @@ var PinchLayer = Ext.extend(Ext.Panel,
 		
 		this.doLayout();
 	},
+	
+	
+	onPinchStart: function(e,el,obj)
+	{
+		PinchLayer.pinchStart = true;
+		PinchLayer.pinching = true;
+	},
+
 	
 	onPinch: function(e, el, obj) 
 	{
