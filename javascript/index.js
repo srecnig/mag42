@@ -143,6 +143,7 @@ Ext.setup
         });
         
         
+        /*
         // trashcan
         trashcan = new Ext.Panel( 
         {
@@ -150,17 +151,21 @@ Ext.setup
             width: 50,
             height: 100,
             dropable: true,
+            draggable: true,
+            validDropMode: 'intersect',
             
             listeners: 
             {
-                /*
-                drop: function(droppable, draggable, ) 
-                {
-                    console.log.('Dropped!');
+                drop: function(droppable, draggable, e) {
+                    alert("hello");
                 }
-                */
-            }
+            },
             
+        });
+        */
+        
+        trashcan = new Ext.Trashcan(
+        { 
         });
         
         menuButtonHandler = function(button,event)
@@ -234,7 +239,7 @@ Ext.setup
         	fullscreen:true,
         	layout:{type:'auto'},
         	style: "background-image: url(gfx/back.jpg); background-repeat: no-repeat;",
-        	items:[tagPanel],
+        	items:[tagPanel, trashcan],
         	dockeditems:[pinchLayer]
         });
 
