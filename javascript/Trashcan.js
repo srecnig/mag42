@@ -4,9 +4,10 @@ var Trashcan = Ext.extend(Ext.Panel,
     initComponent: function() 
 	{
 	   Trashcan.superclass.initComponent.call(this);
+	   
 	},
 
-    /*
+    
     afterRender: function()
     {
         Ext.Panel.superclass.afterRender.call(this);
@@ -15,14 +16,14 @@ var Trashcan = Ext.extend(Ext.Panel,
             validDropMode: 'intersect',
             listeners: {
                 drop: function(droppable, draggable, e) {
-                    console.log("droppend");
-                   //draggable.el.setHTML("Drble");
+                    //console.log("droppend");
+                    //draggable.el.setHTML("Drble");
                 }
             }
         });
         this.relayEvents(this.dropObj, ['drop', 'dropactivate' ,'dropdeactivate', 'dropenter','dropleave']);
     },
-    */
+    
 });
 
 Ext.reg('Trashcan', Trashcan);

@@ -164,8 +164,19 @@ Ext.setup
         });
         */
         
-        trashcan = new Ext.Trashcan(
+        trashcan = new Trashcan(
         { 
+            style: "background-color: #ffffff",
+            width: 50,
+            height: 100,
+            
+            listeners: 
+            {
+                drop: function(droppable, draggable, e) {
+                    console.log("drop over trashcan happened " + e.startY);
+                }
+            },
+            
         });
         
         menuButtonHandler = function(button,event)
