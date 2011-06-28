@@ -99,9 +99,26 @@ Ext.setup
                     	{
                     		var div = Ext.getDom(this.id);
                         	div.style.webkitTransform = "translate3d(0px, -280px, 0px)";
+                        	//console.log(event.pageY)
                     	}
-                    } 
-                }
+                    }, 
+                    
+                    touchstart: function(event, html, obj)
+                    {
+                        //console.log("touchstart at " + event.startY);
+                    },
+                    
+                    touchend: function(event, html, obj)
+                    {
+                        //console.log("touchend at " + event.endX + "/" + event.endY);
+                    },
+                    
+                    render:   function(component)
+                    {
+                        concole.log("before render");
+                    }
+                },
+                
             },
             dockedItems: [bottom_bildleiste],
             items: [bottom_thingy_content]
@@ -141,29 +158,8 @@ Ext.setup
             showAnimation: {type: "slide", direction: "left", duration: 1000},
             items: [side_thingy_list]
         });
-        
-        
+                
         /*
-        // trashcan
-        trashcan = new Ext.Panel( 
-        {
-            style: "background-color: #ffffff",
-            width: 50,
-            height: 100,
-            dropable: true,
-            draggable: true,
-            validDropMode: 'intersect',
-            
-            listeners: 
-            {
-                drop: function(droppable, draggable, e) {
-                    alert("hello");
-                }
-            },
-            
-        });
-        */
-        
         trashcan = new Trashcan(
         { 
             style: "background-color: #ffffff",
@@ -178,6 +174,8 @@ Ext.setup
             },
             
         });
+        */
+        
         
         menuButtonHandler = function(button,event)
         {
@@ -250,7 +248,7 @@ Ext.setup
         	fullscreen:true,
         	layout:{type:'auto'},
         	style: "background-image: url(gfx/back.jpg); background-repeat: no-repeat;",
-        	items:[tagPanel, trashcan],
+        	items:[tagPanel, /*trashcan */],
         	dockeditems:[pinchLayer]
         });
 
@@ -262,7 +260,7 @@ Ext.setup
             items:[viewport],
     		dockedItems: [menu_bar, bottom_thingy, side_thingy ]
     	});
-    	trashcan.setPosition(20,400);
+    	//trashcan.setPosition(20,400);
         
     	pinchLayer.initTags();
     	tagPanel.setTagsDraggable(true);

@@ -364,7 +364,7 @@ var TagPanel = Ext.extend(Ext.Panel,
 		var cc1 = new Tag();
 		var ccc1 = new Tag();
 		
-		t1.initTag("SPORTS", 0, 200, 200);
+		t1.initTag("Sports", 0, 200, 200);
 		//t2.initTag("TECHNOLOGY", 0, 400, 300);
 		c1.initTag("Bundesliga", 1,200,200);
 		//c2.initTag("Apple", 1);
@@ -422,7 +422,20 @@ var TagPanel = Ext.extend(Ext.Panel,
     {
     	this.add(t);
     	this.doLayout();
-    }
+    },
+    
+    getTags: function()
+    {
+        var return_string = ""
+    
+        for(var i=0; i<this.items.length; i++)
+		{
+		    if (this.getComponent(i).tagLayer == 0)
+                return_string += this.getComponent(i).name + " ";
+		}
+		
+		return return_string;
+    },
 });
 
 Ext.reg('TagPanel', TagPanel);
