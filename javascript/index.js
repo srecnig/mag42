@@ -38,20 +38,34 @@ Ext.setup
     	var menuButtonHandler, menuButtons, menu_bar;
     	var bottom_thingy, bottom_thiny_header, bottom_thingy_content, bottom_bildleiste;
     	var side_thingy, side_thingy_list;
-    	var trashcan;
+    	//var trashcan;
+    	var article_overview;
+    	
     	
     	// booleans for global state
     	var all_draggable = true;
     	var side_thingy_enabled = true;
     	
-    	var pictures_html = "";
     	
+        // overlay for articles
+        article_overlay = new Ext.Panel({
+            floating: true,
+            modal: true,
+            centered: true,
+            width: 600,
+            height: 700,
+            scroll: 'vertical',
+            html: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<br/><br/>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.<br/><br/>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.<br/><br/>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer',
+            
+        });
+    	
+    	// Bildleiste als Header
+    	var pictures_html = "";
     	for(var i=1; i<37; i++)
     	{
     		pictures_html += '<div class="picturePreview"><img alt="Bild'+i+'" src="img/Bild'+i+'.jpg" class="imgprev"/></div>'; 
     	}
     	
-    	// Bildleiste als Header
         bottom_bildleiste= new Ext.Panel
         ({
             style: "background-image: url(gfx/picture_preview_panel_back.png); background-repeat: no-repeat; z-index: 100;",
@@ -59,7 +73,7 @@ Ext.setup
 	
             scroll: "horizontal",
             dock: "top",
-            html:'<div class="picturePreviewPanel">' + pictures_html + '</div>"'
+            html:'<div class="picturePreviewPanel">' + pictures_html + '</div>"',
         });
         
         var article_prev_html = "";
@@ -70,14 +84,24 @@ Ext.setup
         	article_prev_html += '<div class="articlePreview"><div class="articlePreviewLeft"><img alt="Bild'+i+'" src="img/Bild'+i+'.jpg" class="artprev"/></div><div class="articlePreviewRight"><h1>Headline '+i+'</h1>'+lorem+'</div></div>'; 
     	}
         
-        
         // content of bottom panel
         bottom_thingy_content = new Ext.Panel
         ({
             style: "background-image: url(gfx/preview_back.png); background-repeat: repeat; z-index: 100;",
             scroll: "horizontal",
             height: "290",
-            html: '<div class="articlePreviewPanel">' + article_prev_html + '</div>'
+            html: '<div class="articlePreviewPanel">' + article_prev_html + '</div>',
+            listeners:
+            {
+                el:
+                {
+                    tap: function(evt, html, obj)
+                    {
+                        console.log("touched article");
+                        article_overlay.show();
+                    }
+                }
+            }
         });
         
         // actual bottom panel, contains head- and content-panel
@@ -89,8 +113,15 @@ Ext.setup
             dock: "bottom",
             draggable: true,
             height: "75",
+                    
             listeners:
             {
+                afterrender:   function(component)
+                {
+                    console.log("after render");
+                    //article_overlay.show();
+                },
+            
                 el:
                 {
                     drag:    function(event, html, obj)
@@ -113,17 +144,13 @@ Ext.setup
                         //console.log("touchend at " + event.endX + "/" + event.endY);
                     },
                     
-                    render:   function(component)
-                    {
-                        concole.log("before render");
-                    }
                 },
                 
             },
             dockedItems: [bottom_bildleiste],
             items: [bottom_thingy_content]
        });
-        
+                
         // list for side panel
         side_thingy_list = new Ext.List
         ({
