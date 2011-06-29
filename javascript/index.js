@@ -24,17 +24,23 @@ Ext.setup
     	var all_draggable = true;
     	var side_thingy_enabled = true;
     	
+    	var arttpl = 	'<div class="overlay" style="width:800px; height:600px; background-image:url(img/Bild1.jpg); background-position:center;">'+
+    						'<div> <h1> Syrische Armee besetzt Grenzdorf nahe der Turkei</h1> </div>'+
+    						'<div class="overlay_abstract">Hunderte Soldaten sollen das Dorf Chirbet al-Dschoos besetzt haben. Der Flüchtlingsstorm nahe des türkischen Dorfes Güvecci geht weiter.</div>'+
+    					'</div>'+
+    					'<div class="overlay_text">Die syrische Armee ist am Donnerstag in ein Dorf an der Grenze zur Türkei eingedrungen. Hunderte Soldaten hätten das Dorf Chirbet al-Dschoos am Morgen mit Panzern besetzt, sagte ein Menschenrechtsaktivist.<br /><br />Ein syrischer Aktivist an der Grenze zur Türkei sagte, er habe 30 Panzer und 15 Busse der Armee gesehen, die in das Dorf eingedrungen seien. Anschließend seien Schüsse zu hören gewesen. Dutzende Familien aus Chirbet al-Dschoos, die sich in Erwartung eines Angriffs außerhalb des Dorfes versteckt hätten, seien daraufhin in Panik in Richtung Grenze geflohen. Dort seien sie von der türkischen Armee mit 20 Bussen abgeholt und in eine Kaserne gebracht worden. Er habe von Flüchtlingen gehört, dass Soldaten und Angehörige der Shabiha-Miliz mit Namenslisten durch das Dorf gezogen seien und dort Häuser von Regimegegnern zerstört hätten.<br  /><br />Flüchtlingsstrom geht weiter<br /><br />Angesichts der Truppenbewegungen überquerten am Donnerstag erneut Hunderte Syrer nahe des türkischen Dorfes Güvecci die Grenze, wie ein Journalist berichtete. Seit Tagen campieren tausende Flüchtlinge in provisorischen Unterkünften, die sie auf syrischer Seite entlang der Grenze errichtet haben. Sie fürchten, nicht wieder in ihre Heimat zurückkehren zu können, wenn sie einmal die Grenze überquert haben. Ihren Angaben zufolge haben die türkischen Grenzposten ihnen aber zugesichert, bei Gefahr die Grenze passieren zu dürfen.<br /><br />Auf türkischer Seite wurden die Flüchtlinge von Sicherheitskräften in Empfang genommen, die mit Minibussen vor Ort war. Eine zweite Gruppe von mehreren hundert Syrern befand sich auf dem Weg in Richtung der Fahrzeuge. Der Rote Halbmond hat in der Provinz Hatay fünf Flüchtlingslager errichtet, um die Flüchtlinge aufzunehmen. Bisher befinden sich 10.200 Menschen in den Lagern. Die Verletzten werden in das knapp 40 Kilometer weiter nördlich gelegene Krankenhaus von Antakya gebracht.<br /><br />Landesweite Proteste am Donnerstag<br /><br />Syrische Oppositionelle riefen unterdessen im Internet für Donnerstag zu einem landesweiten Generalsstreik auf, um am 100. Tag der Proteste gegen Präsident Bashar al-Assad der Opfer der Repression zu gedenken.<br /><br />Aber auch auf der Facebook-Seite "Syrian Revolution 2011", die eine Schlüsselrolle bei der Organisation der Proteste spielt, wurde zudem wie in den Wochen zuvor für Freitag nach dem Mittagsgebet unter dem Slogan "Verlorene Legitimität" zu erneuten Protesten gegen die Regierung aufgerufen.</div>';
+    				
     	
         // overlay for articles
         article_overlay = new Ext.Panel({
             floating: true,
             modal: true,
             centered: true,
-            width: 600,
-            height: 700,
+            width: 800,
+            height: 600,
             scroll: 'vertical',
-            html: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<br/><br/>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.<br/><br/>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.<br/><br/>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer'
-            
+            html: arttpl
+            //html: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<br/><br/>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.<br/><br/>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.<br/><br/>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer'
         });
     	
     	// Bildleiste als Header
@@ -191,7 +197,6 @@ Ext.setup
                 pinchLayer.enablePinchLayer(true);
                 //pinchLayer.show();
                 tagPanel.setTagsDraggable(false);
-                TAG_EDIT_MODE = false;
         	}
         	if( button.text == "edit")
         	{
@@ -201,7 +206,6 @@ Ext.setup
                 pinchLayer.enablePinchLayer(false);
                 pinchLayer.reset();
                 tagPanel.setTagsDraggable(true);
-                TAG_EDIT_MODE = true;
         	}
         };
         
