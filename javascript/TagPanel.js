@@ -28,7 +28,7 @@ var closeBtnTpl = '<div class="closeBtn" onClick="deleteTag(this)"></div>';
 
 function deleteTag(obj)
 {
-	console.log("test " + obj.parentNode.id + ".");
+	//console.log("test " + obj.parentNode.id + ".");
 	tagPanel.removeTag(obj.parentNode.id);
 }
 
@@ -326,7 +326,7 @@ Tag = Ext.extend(Ext.Container,
 	
 	removeChildren: function()
 	{
-	   console.log("recursion");
+	   //console.log("recursion"); 
 	   
 	   // if it has no children, return
 	   if (this.hasChildren() )
@@ -335,7 +335,7 @@ Tag = Ext.extend(Ext.Container,
 	       {
 	           this.childrenTags[i].removeChildren(); 
 	           // after we return we can remove this item
-	           console.log("removing");
+	           //console.log("removing");
 	           tagPanel.items.remove(this.childrenTags[i], true);
 	           this.childrenTags.remove(this.childrenTags[i], true);
 	       }
@@ -495,17 +495,21 @@ var TagPanel = Ext.extend(Ext.Panel,
     removeTag: function(id )
     {
         var mother_tag, mother_tag, child_tag;
-        console.log("heeeello, removeTag: " + id);
+        //console.log("heeeello, removeTag: " + id);
         // iterate and find the tag object
         for(var i=0; i<this.items.length; i++)
 		{		
 		    if (this.getComponent(i).id == id + "_container")
 		    {
                 real_mother_tag = this.getComponent(i);
+		        console.log("tag: " + real_mother_tag.name);
 		        // find all child-tags and remove them
                 real_mother_tag.removeChildren();
+                // move it into the list-store
+                tagstore.add({tagname: real_mother_tag.name})
+                var viewport_index = viewport_tagstore.find("tagname", real_mother_tag.name);
+                viewport_tagstore.removeAt(viewport_index);
                 // remove mothertag ("muttertag") 
-                console.log("fount our tag:" + real_mother_tag.id);
                 this.remove(real_mother_tag, true);
             }
 		}   
