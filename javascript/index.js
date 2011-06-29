@@ -1,6 +1,19 @@
 //globals
 var rootPanel;
 var viewport;
+var bottom_thingy, bottom_thiny_header, bottom_thingy_content, bottom_bildleiste;
+
+function render_bottom_content()
+{
+    var article_prev;
+          
+    for(var i=0; i<articlestore.data.length; i++)
+    {
+        	article_prev += '<div class="articlePreview"><div class="articlePreviewLeft"><img alt="Bild'+i+'" src="img/' + articlestore.getAt(i).get('image') + '.jpg" class="artprev"/></div><div class="articlePreviewRight"><h1>' +  articlestore.getAt(i).get('title') + '</h1>' + articlestore.getAt(i).get('abstract') + '</div></div>'; 
+    }
+    	
+    return article_prev;
+}
 
 Ext.setup
 ({
@@ -14,7 +27,6 @@ Ext.setup
         // panels that build our application
     	var pinchLayer, debugPanel;
     	var menuButtonHandler, menuButtons, menu_bar;
-    	var bottom_thingy, bottom_thiny_header, bottom_thingy_content, bottom_bildleiste;
     	var side_thingy, side_thingy_list;
     	//var trashcan;
     	var article_overview;
@@ -40,7 +52,6 @@ Ext.setup
             height: 600,
             scroll: 'vertical',
             html: arttpl
-            //html: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<br/><br/>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.<br/><br/>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.<br/><br/>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer'
         });
     	
     	// Bildleiste als Header
@@ -60,13 +71,7 @@ Ext.setup
             html:'<div class="picturePreviewPanel">' + pictures_html + '</div>"'
         });
         
-        var article_prev_html = "";
-        var lorem = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et";
-        
-        for(var i=1; i<33; i++)
-    	{
-        	article_prev_html += '<div class="articlePreview"><div class="articlePreviewLeft"><img alt="Bild'+i+'" src="img/Bild'+i+'.jpg" class="artprev"/></div><div class="articlePreviewRight"><h1>Headline '+i+'</h1>'+lorem+'</div></div>'; 
-    	}
+        var article_prev_html = render_bottom_content();
         
         // content of bottom panel
         bottom_thingy_content = new Ext.Panel
