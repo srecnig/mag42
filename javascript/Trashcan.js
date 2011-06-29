@@ -22,7 +22,7 @@ var Trashcan = Ext.extend(Ext.Panel,
             }
         });
         this.relayEvents(this.dropObj, ['drop', 'dropactivate' ,'dropdeactivate', 'dropenter','dropleave']);
-    },
+    }
     
 });
 

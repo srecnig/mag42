@@ -24,7 +24,7 @@ function createTagID()
 	return id;
 }
 
-var closeBtn = '<div class="closeBtn" onClick="deleteTag(this)"></div>';
+var closeBtnTpl = '<div class="closeBtn" onClick="deleteTag(this)"></div>';
 
 function deleteTag(obj)
 {
@@ -52,7 +52,8 @@ Tag = Ext.extend(Ext.Container,
 	pinchY: 0,			//pinch x position
 	pinchLevel: 0,
 	childrenTags:null, 
-		
+	closeBtn:"",
+	
 	initComponent: function() 
 	{
 		var config = 
@@ -60,7 +61,7 @@ Tag = Ext.extend(Ext.Container,
 	        x: 0,
 	        y: 0,
 	        width: "0",
-	        height: "0",
+	        height: "0"
 	  	};
 		
 		Ext.apply(this, config, this.initialConfig);
@@ -87,7 +88,8 @@ Tag = Ext.extend(Ext.Container,
 		this.tagLayer = layer;
 		this.tagID = createTagID();//layer + "_" + name;
 		this.id = this.tagID + "_container";
-
+		this.showClsBtn(true);
+		
 		if(posX!=null)
 		{
 			this.initX = posX;
@@ -98,13 +100,6 @@ Tag = Ext.extend(Ext.Container,
 		this.updateTag(0,0);
 		
 		this.on('tagedited', this.onEditEnd);
-		/*
-		this.addDocked(new Ext.Panel({
-            dock: "top",
-            html: "X"
-		}))
-		*/
-		//this.setDraggable(true);
 	},
 		
 	setPos: function(x,y)
@@ -174,12 +169,10 @@ Tag = Ext.extend(Ext.Container,
 	//draws tag
 	drawTag: function()
 	{
-	   //if (this.isDraggable())
-	   // {
 		this.update('<div id="' + this.tagID  + '"' +
 				      'class="' + this.tagCSS + '"' +
 				      'style=" z-index:' + this.tagZindex + '; opacity:' + this.tagAlpha + ';">' +	
-					closeBtn +	
+					this.closeBtn +	
 				      '<span style="font-size:' + this.tagFontSize + 'em">' +this.name+ '</span>'+
 				    '</div>');
 	
@@ -268,6 +261,23 @@ Tag = Ext.extend(Ext.Container,
 		}
 		
 		this.doLayout();
+	},
+	
+	showClsBtn: function(value)
+	{
+		if(value)
+		{
+			if(this.tagLayer == 0)
+			{
+				this.closeBtn = closeBtnTpl;
+			}
+		}
+		else
+		{
+			this.closeBtn = "";
+		}
+		
+		this.drawTag();
 	},
 	
 	getWidth: function()
@@ -423,6 +433,11 @@ var TagPanel = Ext.extend(Ext.Panel,
 		for(var i=0; i<this.items.length; i++)
 		{
 			this.getComponent(i).setDraggable(this.tagsDragabble);
+			
+			if(value && this.getComponent(i).tagLayer==0)
+				this.getComponent(i).showClsBtn(true);
+			else
+				this.getComponent(i).showClsBtn(false);
 		}
 	},
 	
@@ -466,7 +481,7 @@ var TagPanel = Ext.extend(Ext.Panel,
     
     getTags: function()
     {
-        var return_string = ""
+        var return_string = "";
     
         for(var i=0; i<this.items.length; i++)
 		{
@@ -475,7 +490,7 @@ var TagPanel = Ext.extend(Ext.Panel,
 		}
 		
 		return return_string;
-    },
+    }
 });
 
 Ext.reg('TagPanel', TagPanel);

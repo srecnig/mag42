@@ -14,6 +14,7 @@ var TAG_CORR = 5;
 var TAG_ZINDEX = 900;
 var TAG_ID_COUNTER = -1;
 var TAG_CSS = "tag_inactive";
+var TAG_EDIT_MODE = true;
 
 //PinchLayer
 var ENABLE_DRAG = true;
