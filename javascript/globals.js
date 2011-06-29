@@ -27,3 +27,27 @@ var DEBUG_ON = false;
 var DEBUG_PANEL = new DebugPanel();
 var DEBUG_PINCH = false;
 var DEBUG_INDEX = false;
+
+
+// stores
+var tagstore;
+
+Ext.regModel('Tags', {fields: [{name: 'id'}, {name: 'tagname', type: 'string'}, ]});
+tagstore = new Ext.data.Store
+({
+    model: 'Tags', 
+    sorters: 'tagname',
+    getGroupString: function(record) 
+    {
+        return record.get('tagname')[0];
+    }, 
+    data:
+    [
+        {tagname: 'Music'},
+        {tagname: 'Video'},
+        {tagname: 'Games'},
+        {tagname: 'Philosophy'},
+        {tagname: 'Politics'},
+        {tagname: 'Nonsense'},
+    ]
+});

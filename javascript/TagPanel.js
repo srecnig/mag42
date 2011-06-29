@@ -24,6 +24,13 @@ function createTagID()
 	return id;
 }
 
+var closeBtn = '<div class="closeBtn" onClick="deleteTag()"></div>';
+
+function deleteTag(e)
+{
+	console.log("test");
+}
+
 //TAG
 Tag = Ext.extend(Ext.Container, 
 {
@@ -52,7 +59,7 @@ Tag = Ext.extend(Ext.Container,
 	        x: 0,
 	        y: 0,
 	        width: "0",
-	        height: "0"
+	        height: "0",
 	  	};
 		
 		Ext.apply(this, config, this.initialConfig);
@@ -70,6 +77,7 @@ Tag = Ext.extend(Ext.Container,
         		scope: this
         	}
         });
+
 	},
 	
 	initTag: function(name, layer, posX, posY)
@@ -89,6 +97,12 @@ Tag = Ext.extend(Ext.Container,
 		this.updateTag(0,0);
 		
 		this.on('tagedited', this.onEditEnd);
+		/*
+		this.addDocked(new Ext.Panel({
+            dock: "top",
+            html: "X"
+		}))
+		*/
 		//this.setDraggable(true);
 	},
 		
@@ -162,6 +176,7 @@ Tag = Ext.extend(Ext.Container,
 		this.update('<div id="' + this.tagID  + '"' +
 				      'class="' + this.tagCSS + '"' +
 				      'style=" z-index:' + this.tagZindex + '; opacity:' + this.tagAlpha + ';">' +	
+					closeBtn +	
 				      '<span style="font-size:' + this.tagFontSize + 'em">' +this.name+ '</span>'+
 				    '</div>');
 	
@@ -365,6 +380,7 @@ var TagPanel = Ext.extend(Ext.Panel,
 		var ccc1 = new Tag();
 		
 		t1.initTag("Sports", 0, 200, 200);
+	
 		//t2.initTag("TECHNOLOGY", 0, 400, 300);
 		c1.initTag("Bundesliga", 1,200,200);
 		//c2.initTag("Apple", 1);

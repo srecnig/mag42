@@ -1,27 +1,5 @@
 //globals
-var rootPanel, tagstore;
-
-Ext.regModel('Tags', {fields: [{name: 'id'}, {name: 'tagname', type: 'string'}, ]});
-
-tagstore = new Ext.data.Store
-({
-    model: 'Tags', 
-    sorters: 'tagname',
-    getGroupString: function(record) 
-    {
-        return record.get('tagname')[0];
-    }, 
-    data:
-    [
-        {tagname: 'Music'},
-        {tagname: 'Video'},
-        {tagname: 'Games'},
-        {tagname: 'Philosophy'},
-        {tagname: 'Politics'},
-        {tagname: 'Nonsense'},
-    ]
-});
-
+var rootPanel;
 var viewport;
 
 Ext.setup
@@ -97,7 +75,7 @@ Ext.setup
                 {
                     tap: function(evt, html, obj)
                     {
-                        console.log("touched article");
+                        console.log("touched article: ");
                         article_overlay.show();
                     }
                 }
