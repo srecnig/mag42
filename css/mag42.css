@@ -29,6 +29,39 @@
 	z-index: 905;
 }
 
+.overlay
+{
+	padding: 10px 30px 10px 10px;
+}
+
+.overlay_abstract
+{
+	background-image:url(../gfx/overlay_back.png);
+	background-repeat: repeat;
+	color: #171717;
+	font-weight:bold;
+	font-size: 20px;
+	margin-top:20px;
+	padding: 20px 20px 20px 20px;
+}
+
+.overlay_text
+{
+	padding: 40px 40px 40px 40px;
+	color:#000000;
+	font-size: 16px;
+}
+
+.overlay h1
+{
+	margin-top:10px;
+	color: #ffffff;
+	font-size: 30px;
+	font-weight: bold;
+ 	text-shadow: 0px 4px 6px #000000;
+ 	text-align: right;
+}
+
 .list
 {
 	color: #efefef;
