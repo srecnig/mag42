@@ -305,6 +305,39 @@ Tag = Ext.extend(Ext.Container,
 			return 0;
 		}
 	},
+	
+	hasChildren: function()
+	{
+	   if (this.childrenTags.length == 0)
+	       return false;
+	   else
+	       return true;
+	},
+	
+	removeChildren: function()
+	{
+	   console.log("recursion");
+	   
+	   // if it has no children, return
+	   if (this.hasChildren() )
+	   {
+	       for (var i=0; i < this.childrenTags.length; i++)
+	       {
+	           this.childrenTags[i].removeChildren(); 
+	           // after we return we can remove this item
+	           console.log("removing");
+	           tagPanel.items.remove(this.childrenTags[i], true);
+	           this.childrenTags.remove(this.childrenTags[i], true);
+	       }
+	   }
+	   else
+	   {
+	       return true;
+	   }
+	   
+	   return true;
+	   // if it has children, iterate over all the children
+	},
 		
 	getChildNr: function()
 	{
@@ -446,20 +479,19 @@ var TagPanel = Ext.extend(Ext.Panel,
     
     removeTag: function(id )
     {
-        var mother_tag;
-        console.log("heeeello, removeTag: " + id);
+        var mother_tag, mother_tag, child_tag;
+        //console.log("heeeello, removeTag: " + id);
         // iterate and find the tag object
         for(var i=0; i<this.items.length; i++)
 		{		
 		    if (this.getComponent(i).id == id + "_container")
 		    {
-		         // find all child-tags and remove them
+                real_mother_tag = this.getComponent(i);
+		        // find all child-tags and remove them
+                real_mother_tag.removeChildren();
                 // remove mothertag ("muttertag") 
-                mother_tag = this.getComponent(i);
-                console.log("fount our tag:" + mother_tag.id);
-                this.remove(mother_tag, true);
-                //this.items.removeAt(i);
-                //this.doLayout();
+                console.log("fount our tag:" + real_mother_tag.id);
+                this.remove(real_mother_tag, true);
             }
 		}   
     },
