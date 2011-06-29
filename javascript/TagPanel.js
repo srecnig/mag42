@@ -28,7 +28,7 @@ var closeBtnTpl = '<div class="closeBtn" onClick="deleteTag(this)"></div>';
 
 function deleteTag(obj)
 {
-	//console.log("test " + obj.parentNode.id + ".");
+	console.log("test " + obj.parentNode.id + ".");
 	tagPanel.removeTag(obj.parentNode.id);
 }
 
@@ -495,7 +495,7 @@ var TagPanel = Ext.extend(Ext.Panel,
     removeTag: function(id )
     {
         var mother_tag, mother_tag, child_tag;
-        //console.log("heeeello, removeTag: " + id);
+        console.log("heeeello, removeTag: " + id);
         // iterate and find the tag object
         for(var i=0; i<this.items.length; i++)
 		{		
