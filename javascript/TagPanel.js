@@ -24,11 +24,12 @@ function createTagID()
 	return id;
 }
 
-var closeBtn = '<div class="closeBtn" onClick="deleteTag()"></div>';
+var closeBtn = '<div class="closeBtn" onClick="deleteTag(this)"></div>';
 
-function deleteTag(e)
+function deleteTag(obj)
 {
-	console.log("test");
+	//console.log("test " + obj.parentNode.id + ".");
+	tagPanel.removeTag(obj.parentNode.id);
 }
 
 //TAG
@@ -173,6 +174,8 @@ Tag = Ext.extend(Ext.Container,
 	//draws tag
 	drawTag: function()
 	{
+	   //if (this.isDraggable())
+	   // {
 		this.update('<div id="' + this.tagID  + '"' +
 				      'class="' + this.tagCSS + '"' +
 				      'style=" z-index:' + this.tagZindex + '; opacity:' + this.tagAlpha + ';">' +	
@@ -181,6 +184,7 @@ Tag = Ext.extend(Ext.Container,
 				    '</div>');
 	
 		this.updateDimensions();
+        //}
 	},
 	
 	updateChildren: function(zoom_ratio, zoom_level)
@@ -438,6 +442,26 @@ var TagPanel = Ext.extend(Ext.Panel,
     {
     	this.add(t);
     	this.doLayout();
+    },
+    
+    removeTag: function(id )
+    {
+        var mother_tag;
+        console.log("heeeello, removeTag: " + id);
+        // iterate and find the tag object
+        for(var i=0; i<this.items.length; i++)
+		{		
+		    if (this.getComponent(i).id == id + "_container")
+		    {
+		         // find all child-tags and remove them
+                // remove mothertag ("muttertag") 
+                mother_tag = this.getComponent(i);
+                console.log("fount our tag:" + mother_tag.id);
+                this.remove(mother_tag, true);
+                //this.items.removeAt(i);
+                //this.doLayout();
+            }
+		}   
     },
     
     getTags: function()

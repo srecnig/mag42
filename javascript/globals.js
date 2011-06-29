@@ -5,6 +5,7 @@
 var PI = Math.PI;
 
 //TagPanel
+var tagPanel;
 var ORIGIN = new Object(); ORIGIN.x = 0; ORIGIN.y = 0;
 var MAX_FONT_SIZE = 16;
 var MIN_FONT_SIZE = 0;
@@ -49,5 +50,23 @@ tagstore = new Ext.data.Store
         {tagname: 'Philosophy'},
         {tagname: 'Politics'},
         {tagname: 'Nonsense'},
+    ]
+});
+
+// stores
+var viewport_tagstore;
+
+Ext.regModel('ViewportTags', {fields: [{name: 'id'}, {name: 'tagname', type: 'string'}, ]});
+viewport_tagstore = new Ext.data.Store
+({
+    model: 'Tags', 
+    sorters: 'tagname',
+    getGroupString: function(record) 
+    {
+        return record.get('tagname')[0];
+    }, 
+    data:
+    [
+        {tagname: 'Sports'},
     ]
 });

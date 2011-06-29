@@ -12,7 +12,7 @@ Ext.setup
     onReady: function()
     {   	
         // panels that build our application
-    	var pinchLayer, tagPanel, debugPanel;
+    	var pinchLayer, debugPanel;
     	var menuButtonHandler, menuButtons, menu_bar;
     	var bottom_thingy, bottom_thiny_header, bottom_thingy_content, bottom_bildleiste;
     	var side_thingy, side_thingy_list;
