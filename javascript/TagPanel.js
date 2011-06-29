@@ -53,6 +53,7 @@ Tag = Ext.extend(Ext.Container,
 	pinchLevel: 0,
 	childrenTags:null, 
 	closeBtn:"",
+	onScreen: false,
 	
 	initComponent: function() 
 	{
@@ -135,6 +136,7 @@ Tag = Ext.extend(Ext.Container,
 				this.tagFontSize = calcFontSize(s);
 				this.tagCSS = "tag_active";
 				this.tagZindex = TAG_ZINDEX;
+				this.onScreen = false;
 			}
 						
 			//tag eine ebene ueberhalb von aktueller ebene
@@ -146,6 +148,7 @@ Tag = Ext.extend(Ext.Container,
 				this.tagFontSize = calcFontSize(s);
 				this.tagCSS = "tag_inactive";
 				this.tagZindex = TAG_ZINDEX+1;
+				this.checkOnScreen();
 			}
 	
 			//tag eine ebene unterhalb von aktueller ebene
@@ -157,6 +160,7 @@ Tag = Ext.extend(Ext.Container,
 				this.tagFontSize = calcFontSize(s);
 				this.tagCSS = "tag_inactive";
 				this.tagZindex = TAG_ZINDEX-1;
+				this.onScreen = false;
 			}
 						
 			this.drawTag();
@@ -164,6 +168,7 @@ Tag = Ext.extend(Ext.Container,
 		
 		this.calcPos(zoom_ratio, zoom_level);
 		this.updateChildren(zoom_ratio, zoom_level);
+		this.checkOnScreen(zoom_level);
 	},
 	
 	//draws tag
@@ -187,6 +192,18 @@ Tag = Ext.extend(Ext.Container,
 			this.getComponent(i).updateTag(zoom_ratio, zoom_level);
 		}
 		this.doLayout();
+	},
+	
+	checkOnScreen: function()
+	{
+		if( ( this.x >= 0 && this.x <= 1024 ) && ( this.y >= 0 && this.y <= 768) )
+		{
+			this.onScreen = true;
+		}
+		else
+		{
+			this.onScreen = false;
+		}
 	},
 	
 	calcPos: function(zoom_ratio, zoom_level)
