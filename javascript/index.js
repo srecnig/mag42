@@ -4,13 +4,18 @@ var viewport;
 var bottom_thingy, bottom_thiny_header, bottom_thingy_content, bottom_bildleiste;
 var article_overlay;
 
+var articles=new Array(40);
+for (i=0; i <40; i++)
+	articles[i] = new Array(2); 
+
+
 function create_bottom_content()
 {
     var article_prev;
           
     for(var i=0; i<articlestore.data.length; i++)
     {
-        article_prev += '<div class="articlePreview" onClick="create_and_show_overlay(this)" id="article_preview_' + i + ' "><div class="articlePreviewLeft"><img alt="Bild'+i+'" src="img/' + articlestore.getAt(i).get('image') + '.jpg" class="artprev"/></div><div class="articlePreviewRight"><h1>' +  articlestore.getAt(i).get('title') + '</h1>' + articlestore.getAt(i).get('abstract') + '</div></div>'; 
+        article_prev += '<div class="articlePreview" onClick="create_and_show_overlay(this)" id="article_preview_' + i + ' "><div class="articlePreviewLeft"><img alt="Bild'+i+'" src="img/' + articlestore.getAt(i).get('image') + '.jpg" class="artprev"/></div><div class="articlePreviewRight"><h1>' +  articlestore.getAt(i).get('title') + '</h1>' + articlestore.getAt(i).get('abstract') + '</div></div>';
     }
     	
     return article_prev;
