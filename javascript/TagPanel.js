@@ -206,6 +206,11 @@ Tag = Ext.extend(Ext.Container,
 		}
 	},
 	
+	isOnScreen: function()
+	{
+		return this.onScreen;
+	},
+	
 	calcPos: function(zoom_ratio, zoom_level)
 	{
 		//richtungsvektor zw pinchPos und initPos berechnen
