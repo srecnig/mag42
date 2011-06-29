@@ -17,6 +17,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 1,
             tag: 'Politics',
+            cat: 0,
             image: 'image_1',
             title: 'China: Regimekritiker Ai Weiwei freigelassen',
             abstract: 'Der Künstler wurde laut Staatsmedien gegen Kaution auf freien Fuß gesetzt, nachdem er ein Geständnis wegen Steuerflucht abgelegt habe. Er darf Peking nicht verlassen.',
@@ -26,6 +27,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 2,
             tag: 'Politics',
+            cat: 0,
             image: 'image_2',
             title: 'Syrische Armee besetzt Grenzdorf nahe der Türkei',
             abstract: 'Hunderte Soldaten sollen das Dorf Chirbet al-Dschoos besetzt haben. Der Flüchtlingsstorm nahe des türkischen Dorfes Güvecci geht weiter.',
@@ -35,6 +37,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 3,
             tag: 'Politics',
+            cat: 0,
             image: 'image_3',
             title: '"Mafia-Paragraf": Evaluierung nach schwerer Kritik',
             abstract: 'Die Überprüfung der im Tierschützerprozess heftig kritisierten Bestimmung soll noch heuer erledigt sein. Externe Experten sollen eingebunden werden. Der Paragraf 278a stand zuletzt im Kreuzfeuer der Kritik.',
@@ -44,6 +47,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 4,
             tag: 'Politics',
+            cat: 0,
             image: 'image_4',
             title: 'Griechische Regierung beschließt neue Sparpläne',
             abstract: 'Das Kabinett von Regierungschef Papandreou hat einen Sparplan für die kommenden drei Jahren beschlossen. Die Regierung steuert bereits auf den nächsten Schicksalstag zu.',
@@ -53,6 +57,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 5,
             tag: 'Politics',
+            cat: 0,
             image: 'image_5',
             title: 'Vassilakou fleht: „Gebt mir Zeit“',
             abstract: 'Mit Freunden im Feindesland. Nach sieben Monaten Rot-Grün wollen die Initiativen Transdanubiens erste Ergebnisse von den Grünen sehen. Vizebürgermeisterin Maria Vassilakou bittet um Geduld.',
@@ -62,6 +67,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 6,
             tag: 'Politics',
+            cat: 0,
             image: 'image_6',
             title: 'Krawall-Nacht in Belfast: Fotograf angeschossen',
             abstract: 'Protestanten und Katholiken haben sich in der nordirischen Stadt Straßenschlachten geliefert. Ein Fotograf wurde angeschossen. Es waren die schwersten Kämpfe seit Jahren.',
@@ -71,6 +77,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 7,
             tag: 'Politics',
+            cat: 0,
             image: 'image_7',
             title: 'Israels Premier Netanyahu reicht Türkei die Hand',
             abstract: 'Israels Ministerpräsident Benjamin Netanyahu soll seinem türkischen Amtskollegen Recep Tayyip Erdoğan zu dessen Wahlsieg gratuliert und um neuerliche Aufnahme der Zusammenarbeit gebeten haben.',
@@ -80,6 +87,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 8,
             tag: 'Politics',
+            cat: 0,
             image: 'image_8',
             title: 'Jemen: Al-Qaida-Mitglieder brechen aus Gefängnis aus',
             abstract: 'Nach einem Angriff auf das Gefängnis konnten rund 40 al-Qaida-Mitglieder fliehen.',
@@ -89,6 +97,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 9,
             tag: 'Sports',
+            cat: 1,
             image: 'image_9',
             title: 'Olympia: Tokio vor Bewerbung um Sommerspiele 2020',
             abstract: 'Für den Präsidenten des nationalen olympischen Komitees wäre ein Zuschlag für das krisengeschüttelte Land ein "Symbol für Japans Erholung" nach der Tsunami- und Atom-Katastrophe im März.',
@@ -98,6 +107,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 10,
             tag: 'Sports',
+            cat: 1,
             image: 'image_10',
             title: 'Wimbledon: Zittersieg von Venus Williams',
             abstract: 'Nach fast drei Stunden Kampf gegen die 40-jährige Japanerin Kimiko Date-Krumm steht die Amerikanerin in der dritten Runde. Im 14 Game des dritten Satzes gelang ihr das Break zum Sieg.',
@@ -108,6 +118,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 11,
             tag: 'Sports',
+            cat: 1,
             image: 'image_11',
             title: 'Fußball: Die Topklubs fliegen lieber aufs Geld',
             abstract: 'Viele ausländische Vereine schlagen ihre Sommertrainingslager in Österreich auf. Nur Kaliber wie Real Madrid kommen nicht mehr. Damen-Weltmeisterschaft in Deutschland wird am Sonntag eröffnet.',
@@ -117,6 +128,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 12,
             tag: 'Sports',
+            cat: 1,
             image: 'image_12',
             title: 'Nach Eklat: Prettenthalers Vertrag bei Ried aufgelöst',
             abstract: 'Der Abwehrspieler wurde vom Landesgericht Leoben wegen schwerer Körperverletzung rechtskräftig verurteilt. Der Cupsieger aus dem Innviertel löste den Vertrag mit Prettenthaler umgehend auf.',
@@ -126,6 +138,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 13,
             tag: 'Sports',
+            cat: 1,
             image: 'image_13',
             title: 'Fußball: Villas-Boas wird teuerster Trainer der Welt',
             abstract: 'Der Coach des FC Porto steht kurz vor einem Wechsel zum FC Chelsea. Die "Blues" lassen sich den Portugiesen 15 Millonen Euro kosten. In London ist Villas-Boas kein Unbekannter.',
@@ -135,6 +148,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 14,
             tag: 'Sports',
+            cat: 1,
             image: 'image_14',
             title: 'Fußball: Co Adriaanse neuer Trainer von Marc Janko',
             abstract: 'Der ehemalige Salzburg-Coach übernimmt den niederländischen Pokalsieger Twente Enschede. Dort gibt es ein Wiedersehen mit Marc Janko. Der ÖFB-Stürmer traf unter Adriaanse 39-mal für Salzburg.',
@@ -144,6 +158,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 15,
             tag: 'Sports',
+            cat: 1,
             image: 'image_15',
             title: 'Champions League: Sturm Graz trifft auf Videoton',
             abstract: 'Österreichs Meister spielt in der zweiten Qualifikationsrunde zur Eliteliga gegen den ungarischen Champion aus Szekesfehervar. Sturm-Coach Foda sprach vom "schwersten möglichen Gegner".',
@@ -153,6 +168,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 16,
             tag: 'Sports',
+            cat: 1,
             image: 'image_16',
             title: 'Fußball: Ein skandalöser Selbstversuch',
             abstract: 'Im italienischen Wettskandal werden immer mehr Details bekannt. Es hat auch Ergebnisabsprachen unter den Vereinen gegeben. Manchmal nur aus purer Neugierde. Derzeit stehen 60 Spiele unter Manipulationsverdacht.',
@@ -162,6 +178,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 17,
             tag: 'Sports',
+            cat: 1,
             image: 'image_17',
             title: '7:4 - Weltstars und Austria boten bei Jubiläumsspiel Torfestival',
             abstract: 'Die 100-Jahr-Feier geriet vor knapp 12.000 Fans zu einem großen Fußballfest. Die Veilchen besiegten das Team der Weltstars mit Figo, Ronaldo, Cafu und Co 7:4.',
@@ -171,6 +188,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 18,
             tag: 'Sports',
+            cat: 1,
             image: 'image_18',
             title: 'Formel 1 in Kanada: So spannend kann Wahnsinn sein',
             abstract: 'Jenson Button siegte in Kanada, ließ Weltmeister Vettel in einem denkwürdigen Rennen in der letzten Runde im Regen stehen, und bot Motorsport vom Allerfeinsten.',
@@ -180,6 +198,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 19,
             tag: 'Sports',
+            cat: 1,
             image: 'image_19',
             title: 'Formel 1: Bestzeit für Alonso - Vettel mit Unfall',
             abstract: 'Der Weltmeister krachte am Freitag in Montreal mit seinem Red Bull in die "Mauer der Champions" und beschädigte den RB7 dabei schwer. Die Bestzeit erzielte Fernando Alonso.',
@@ -189,6 +208,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 20,
             tag: 'Sports',
+            cat: 1,
             image: 'image_20',
             title: 'Formel 1: Vettels Jagd nach dem Startrekord',
             abstract: 'Vettel bleibt auf der Überholspur. In Montreal könnte der Deutsche nicht nur den sechsten Saisonerfolg einfahren, sondern auch in den Siegesrekorden mit Clark, Schumacher und Button gleichziehen.',
@@ -198,6 +218,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 21,
             tag: 'Music',
+            cat: 2,
             image: 'image_21',
             title: 'Bon Iver - "Bon Iver"',
             abstract: 'Zurück aus der Isolation',
@@ -207,6 +228,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 22,
             tag: 'Music',
+            cat: 2,
             image: 'image_22',
             title: 'Beatles: Unveröffentlichte Fotos in London ausgestellt',
             abstract: '50 bisher unveröffentlichte Aufnahmen aus dem Jahr 1964 sind in London ausgestellt.Die Bilder sollen im Auktionshaus Christie s versteigert werden.',
@@ -216,6 +238,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 23,
             tag: 'Music',
+            cat: 2,
             image: 'image_23',
             title: 'Nova Rock: "Was prophezeit wurde, ist nicht eingetroffen"',
             abstract: 'Das befürchtete Verkehrschaos ist ausgeblieben. 160.000 Besucher dürfen sich beim Open-Air-Spektakel in Nickelsdorf auf harte Klänge und ideales Wetter freuen.',
@@ -225,6 +248,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 24,
             tag: 'Music',
+            cat: 2,
             image: 'image_24',
             title: 'Beständiger als Erz: Heavy Metal',
             abstract: 'Auch heuer locken beim "Nova Rock"-Festival etliche Bands, die unter (Heavy) Metal firmieren. Seit gut 40 Jahren hält sich dieser Stil, den manche als "rein proletarisch" beschreiben, in zahlreichen Ausprägungen.',
@@ -234,6 +258,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 25,
             tag: 'Music',
+            cat: 2,
             image: 'image_25',
             title: 'So happy: Leichte Musik von Marianne Faithfull',
             abstract: 'Für ihr neues Album hat Marianne Faithfull die glückliche Seite an sich entdeckt. Sex hat sie trotzdem keinen mehr.',
@@ -243,6 +268,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 26,
             tag: 'Music',
+            cat: 2,
             image: 'image_26',
             title: 'Donauinselfest 2011: Sido statt Robbie Williams',
             abstract: 'Von 24. bis 26. Juni findet das Wiener Gratisfestival statt. Reif für die Insel sind Altstars wie Europe und Chartsstürmer à la Sido.',
@@ -252,6 +278,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 27,
             tag: 'Music',
+            cat: 2,
             image: 'image_27',
             title: 'Queen: Roger Taylor leidet an Hörverlust',
             abstract: 'Der Queen-Schlagzeuger hat einen dramatischen Hörverlust erlitten. Roger Taylor ist auf Hörhilfen angewiesen und muss Lippen lesen. Von seinem neuen Soloalbum wird ihn das aber nicht abhalten.',
@@ -261,6 +288,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 28,
             tag: 'Music',
+            cat: 2,
             image: 'image_28',
             title: 'Bob Geldof spielt bei "Burg in Concert"-Reihe',
             abstract: 'Interessante Wahl: Nach Kruder & Dorfmeister, Element of Crime und Patti Smith steht beim vierten "Burg in Concert" Weltenretter Bob Geldof mit Band auf der Bühne.',
@@ -270,6 +298,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 29,
             tag: 'Music',
+            cat: 2,
             image: 'image_29',
             title: 'Pink Floyd gewinnt Klage gegen EMI',
             abstract: 'Der Musikkonzern darf einzelne Lieder von Pink Floyd nun nicht mehr im Internet ohne das Einverständnis der Musiker verkaufen. Die Band wehrt sich dagegen, dass ihre Alben "auseinandergerissen" werden.',
@@ -279,6 +308,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 30,
             tag: 'Music',
+            cat: 2,
             image: 'image_30',
             title: 'Pink wurde Mutter: Willow Sage ist da',
             abstract: 'Nach einer Fehlgeburt hat es jetzt geklappt. Sängerin Pink hat ein Mädchen zur Welt gebracht. "Sie ist hinreißend, genau wie ihr Daddy". Seit 2006 ist Pink mit dem Motocrossfahrer Carey Hart verheiratet.',
@@ -288,6 +318,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 31,
             tag: 'Video',
+            cat: 3,
             image: 'image_31',
             title: 'Deutschland: Musikindustrie klagt YouTube',
             abstract: 'Die Fronten zwischen der deutschen Verwertungsgesellschaft Gema und der YouTube-Mutter Google sind verhärtet. Google sieht auf absehbare Zeit "keine Einigung".',
@@ -297,6 +328,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 32,
             tag: 'Video',
+            cat: 3,
             image: 'image_32',
             title: 'Filme auf Knopfdruck: TV abseits alter Pfade',
             abstract: 'Analog-TV ist tot. Die Branche verdirbt aber den Spaß an digitalen Bildern. Hilfe kommt aus dem Internet, auch ohne illegale Dienste wie Kino.to. Das Zauberwort heißt "Video on Demand".',
@@ -306,6 +338,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 33,
             tag: 'Video',
+            cat: 3,
             image: 'image_33',
             title: 'Werbefilmer: Große Gefühle in 30 Sekunden',
             abstract: 'Die Budgets sinken, auch Wien macht den Produktionsfirmen die Arbeit nicht immer leicht. Trotzdem erobern junge und ältere Werbefilmer ganz neue Kanäle abseits des Fernsehens.',
@@ -315,6 +348,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 34,
             tag: 'Games',
+            cat: 4,
             image: 'image_34',
             title: 'Cloud-Gaming: Spieledienst OnLive kommt auf Tablets',
             abstract: 'Auf der E3 wurden erste Apps für iPad und Android präsentiert. Die Darstellung wird auf Servern berechnet per Stream übertragen. Ab Herbst startet der Dienst in Europa.',
@@ -324,6 +358,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 35,
             tag: 'Games',
+            cat: 4,
             image: 'image_35',
             title: 'Wii U: Nintendo stellt Tablet-Spielkonsole vor',
             abstract: 'Die Nachfolgerin der Wii bietet einen großen Controller, der über einen Touchscreen verfügt. Die Grafik wurde deutlich verbessert. Zahlreiche hochkarätige Entwickler haben bereits Spiele angekündigt.',
@@ -333,6 +368,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 36,
             tag: 'Games',
+            cat: 4,
             image: 'image_36',
             title: 'Schwedischer Spiele-Entwickler kauft JoWooD',
             abstract: 'Wingefors will den insolventen steirischen Spielehersteller in eingeschränkter Form weiterführen. Beschäftigungsgarantie gibt es keine.',
@@ -342,6 +378,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 37,
             tag: 'Games',
+            cat: 4,
             image: 'image_37',
             title: 'Spiele-Messe E3: Microsoft bietet einen Happen Halo 4',
             abstract: 'Das weltgrößte Gaming-Event hat begonnen. Zum Auftakt holte Microsoft zum Rundumschlag aus - dank Kinect-Sensor teilweise sogar wortwörtlich. Das Zusatzgerät erhält immer mehr Unterstützung.',
@@ -351,6 +388,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 38,
             tag: 'Philosophy',
+            cat: 5,
             image: 'image_38',
             title: 'Wettbewerb: Wenn Schüler zu Philosophen werden',
             abstract: 'Philosophie-Olympiade lockte Schüler aus 30 Ländern nach Wien. Wichtig bei den Essays ist die Originalität und eine schlüssige Argumentation. Vier Stunden hatten sie Zeit, ihre Gedanken zu Papier zu bringen.',
@@ -360,6 +398,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 39,
             tag: 'Nonsense',
+            cat: 6,
             image: 'image_39',
             title: 'Gernot Kulis: Mega-Show mit hoher Wuchteldichte',
             abstract: 'In seinem ersten Solo, „Kulisionen“, gelingt dem Comedystar der Spagat zwischen Imitationen, alten Callboy-Stückeln und aktuellem Geschehen.',
@@ -369,6 +408,7 @@ var articlestore = new Ext.data.Store({
 		{
             id: 40,
             tag: 'Nonsense',
+            cat: 6,
             image: 'image_40',
             title: 'Premiere: Wien bekommt ein Kabarettfestival',
             abstract: 'Von 28. bis 30. Juli treten namhafte Vertreter der Kleinkunstszene im Arkadenhof des Rathauses auf. Die Leitung übernimmt Viktor Gernot.',

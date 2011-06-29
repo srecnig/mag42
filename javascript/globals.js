@@ -71,3 +71,17 @@ viewport_tagstore = new Ext.data.Store
         {tagname: 'Sports'},
     ]
 });
+
+
+var ARTICLES_DIV = new Array(40);
+var ARTICLES_VIS = new Array(7);
+
+/*
+0 Politics
+1 Sports
+2 Music
+3 Video
+4 Games
+5 Philosophy
+6 Nonsense
+*/

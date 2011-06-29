@@ -4,20 +4,32 @@ var viewport;
 var bottom_thingy, bottom_thiny_header, bottom_thingy_content, bottom_bildleiste;
 var article_overlay;
 
-var articles=new Array(40);
-for (i=0; i <40; i++)
-	articles[i] = new Array(2); 
+for(var i=0; i<articlestore.data.length; i++)
+{
+	ARTICLES_DIV[i] = '<div class="articlePreview" onClick="create_and_show_overlay(this)" id="article_preview_' + i + ' "><div class="articlePreviewLeft"><img alt="Bild'+i+'" src="img/' + articlestore.getAt(i).get('image') + '.jpg" class="artprev"/></div><div class="articlePreviewRight"><h1>' +  articlestore.getAt(i).get('title') + '</h1>' + articlestore.getAt(i).get('abstract') + '</div></div>';
+}
 
+for(var i=0; i<7; i++)
+{
+	ARTICLES_VIS[i] = false; 
+}
+
+console.log("articlevis: " + ARTICLES_VIS);
 
 function create_bottom_content()
 {
-    var article_prev;
+    var article_prev = '<div class="articlePreviewPanel">';
           
     for(var i=0; i<articlestore.data.length; i++)
     {
-        article_prev += '<div class="articlePreview" onClick="create_and_show_overlay(this)" id="article_preview_' + i + ' "><div class="articlePreviewLeft"><img alt="Bild'+i+'" src="img/' + articlestore.getAt(i).get('image') + '.jpg" class="artprev"/></div><div class="articlePreviewRight"><h1>' +  articlestore.getAt(i).get('title') + '</h1>' + articlestore.getAt(i).get('abstract') + '</div></div>';
+    	var id = articlestore.getAt(i).get('cat');
+    	
+    	if(ARTICLES_VIS[id])
+    		article_prev += ARTICLES_DIV[i];
     }
     	
+    article_prev += '</div>';
+    
     return article_prev;
 }
 
@@ -92,7 +104,6 @@ Ext.setup
             html:'<div class="picturePreviewPanel">' + pictures_html + '</div>"'
         });
         
-        var article_prev_html = create_bottom_content();
         
         // content of bottom panel
         bottom_thingy_content = new Ext.Panel
@@ -100,7 +111,7 @@ Ext.setup
             style: "background-image: url(gfx/preview_back.png); background-repeat: repeat; z-index: 100;",
             scroll: "horizontal",
             height: "290",
-            html: '<div class="articlePreviewPanel">' + article_prev_html + '</div>',
+            html: create_bottom_content(),
             listeners:
             {
                 el:
@@ -303,5 +314,7 @@ Ext.setup
         
     	pinchLayer.initTags();
     	tagPanel.setTagsDraggable(true);
+    	bottom_thingy_content.update( create_bottom_content() );
+    	console.log("articlevis: " + ARTICLES_VIS);
     }
 });

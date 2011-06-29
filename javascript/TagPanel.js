@@ -24,6 +24,22 @@ function createTagID()
 	return id;
 }
 
+function getTagIDbyName(name)
+{
+	var id = 0;
+	
+	if(name == "Politics") 			id=0;
+	else if(name == "Sports") 		id=1;
+	else if(name == "Music") 		id=2;
+	else if(name == "Music") 		id=3;
+	else if(name == "Games") 		id=4;
+	else if(name == "Philosophy") 	id=5;
+	else if(name == "Nonsense") 	id=6;
+	
+	return id;
+}
+
+
 var closeBtnTpl = '<div class="closeBtn" onClick="deleteTag(this)"></div>';
 
 function deleteTag(obj)
@@ -36,6 +52,7 @@ function deleteTag(obj)
 Tag = Ext.extend(Ext.Container, 
 {
 	name: "",
+	cat: 0,
 	debugCLS: "tag",
 	tagID: "",
 	dis: 0,					
@@ -90,6 +107,7 @@ Tag = Ext.extend(Ext.Container,
 		this.tagID = createTagID();//layer + "_" + name;
 		this.id = this.tagID + "_container";
 		this.showClsBtn(true);
+		this.cat = getTagIDbyName(this.name);
 		
 		if(posX!=null)
 		{
@@ -136,7 +154,7 @@ Tag = Ext.extend(Ext.Container,
 				this.tagFontSize = calcFontSize(s);
 				this.tagCSS = "tag_active";
 				this.tagZindex = TAG_ZINDEX;
-				this.onScreen = false;
+				this.checkOnScreen();
 			}
 						
 			//tag eine ebene ueberhalb von aktueller ebene
@@ -148,7 +166,7 @@ Tag = Ext.extend(Ext.Container,
 				this.tagFontSize = calcFontSize(s);
 				this.tagCSS = "tag_inactive";
 				this.tagZindex = TAG_ZINDEX+1;
-				this.checkOnScreen();
+				this.onScreen = false;
 			}
 	
 			//tag eine ebene unterhalb von aktueller ebene
@@ -168,7 +186,6 @@ Tag = Ext.extend(Ext.Container,
 		
 		this.calcPos(zoom_ratio, zoom_level);
 		this.updateChildren(zoom_ratio, zoom_level);
-		this.checkOnScreen(zoom_level);
 	},
 	
 	//draws tag
@@ -199,10 +216,13 @@ Tag = Ext.extend(Ext.Container,
 		if( ( this.x >= 0 && this.x <= 1024 ) && ( this.y >= 0 && this.y <= 768) )
 		{
 			this.onScreen = true;
+			ARTICLES_VIS[this.cat] = true;
+			console.log(this.name + " set " + this.cat + " true");
 		}
 		else
 		{
 			this.onScreen = false;
+			ARTICLES_VIS[this.cat] = false;
 		}
 	},
 	
