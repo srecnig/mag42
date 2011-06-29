@@ -41,7 +41,11 @@ function create_and_show_overlay(obj)
     var i = parseInt(obj.id.split("_")[2]); 
     
     // create html
-    var overlay_html = '<div class="overlay" style="width:800px; height:600px; background-image:url(img/' + articlestore.getAt(i).get('image') + '.jpg); background-position:center;"><div> <h1>' + articlestore.getAt(i).get('title') + '</h1> </div><div class="overlay_abstract">' + articlestore.getAt(i).get('abstract') + '</div></div><div class="overlay_text">' + articlestore.getAt(i).get('content') + '</div>';
+    var overlay_html = '<div class="overlay" style="width:800px; height:600px; background-image:url(img/' + articlestore.getAt(i).get('image') + '.jpg); background-repeat:no-repeat;">'+
+    						'<div> <h1>' + articlestore.getAt(i).get('title') + '</h1> </div>' +
+    						'<div class="overlay_abstract">' + articlestore.getAt(i).get('abstract') + '</div>' +
+    					'</div>'+
+    					'<div class="overlay_text">' + articlestore.getAt(i).get('content') + '</div>';
     
     // set to panel and show
     article_overlay.update(overlay_html);    
@@ -195,6 +199,7 @@ Ext.setup
                     tagPanel.addTag(new_tag);
                     list_object.store.removeAt(index);
                     new_tag.setDraggable(true);
+                    bottom_thingy_content.update( create_bottom_content() );
                 }
             }
         });
