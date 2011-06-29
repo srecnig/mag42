@@ -213,25 +213,7 @@ Ext.setup
             showAnimation: {type: "slide", direction: "left", duration: 1000},
             items: [side_thingy_list]
         });
-                
-        /*
-        trashcan = new Trashcan(
-        { 
-            style: "background-color: #ffffff",
-            width: 50,
-            height: 100,
-            
-            listeners: 
-            {
-                drop: function(droppable, draggable, e) {
-                    console.log("drop over trashcan happened " + e.startY);
-                }
-            },
-            
-        });
-        */
-        
-        
+ 
         menuButtonHandler = function(button,event)
         {
         	if(button.text == "view")

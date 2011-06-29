@@ -137,6 +137,11 @@ Tag = Ext.extend(Ext.Container,
 		return pos;
 	},
 	
+	getCat: function()
+	{
+		return this.cat;
+	}, 
+	
 	updateTag: function(zoom_ratio, zoom_level)
 	{
 		if( Math.abs(this.tagLayer-zoom_level) < 2)
@@ -536,7 +541,7 @@ var TagPanel = Ext.extend(Ext.Panel,
     
     removeTag: function(id )
     {
-        var mother_tag, mother_tag, child_tag;
+        var mother_tag, real_mother_tag, child_tag;
         //console.log("heeeello, removeTag: " + id);
         // iterate and find the tag object
         for(var i=0; i<this.items.length; i++)
@@ -544,6 +549,7 @@ var TagPanel = Ext.extend(Ext.Panel,
 		    if (this.getComponent(i).id == id + "_container")
 		    {
                 real_mother_tag = this.getComponent(i);
+                var cat =  this.getComponent(i).getCat();
 		        console.log("tag: " + real_mother_tag.name);
 		        // find all child-tags and remove them
                 real_mother_tag.removeChildren();
@@ -553,8 +559,11 @@ var TagPanel = Ext.extend(Ext.Panel,
                 viewport_tagstore.removeAt(viewport_index);
                 // remove mothertag ("muttertag") 
                 this.remove(real_mother_tag, true);
+                ARTICLES_VIS[cat] = false;
             }
 		}   
+        
+        bottom_thingy_content.update( create_bottom_content() );
     },
     
     getTags: function()
